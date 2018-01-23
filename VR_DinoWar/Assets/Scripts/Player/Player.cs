@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : Character {
+
+	public int enemyNo = 0;
 
 	public static Player instance;
 
@@ -20,4 +22,5 @@ public class Player : MonoBehaviour {
 	void Update () {
 		
 	}
+
 }

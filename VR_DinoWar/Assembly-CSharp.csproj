@@ -51,7 +51,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI\TestAI.cs" />
+     <Compile Include="Assets\Scripts\AI\Action.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackAction.cs" />
+     <Compile Include="Assets\Scripts\AI\CheckAttackDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\CloseIn.cs" />
+     <Compile Include="Assets\Scripts\AI\CloseInDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\Decision.cs" />
+     <Compile Include="Assets\Scripts\AI\EngageAction.cs" />
+     <Compile Include="Assets\Scripts\AI\ReachedDestinationDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\State.cs" />
+     <Compile Include="Assets\Scripts\AI\StateController.cs" />
+     <Compile Include="Assets\Scripts\AI\Transition.cs" />
+     <Compile Include="Assets\Scripts\AI\Waypoint.cs" />
+     <Compile Include="Assets\Scripts\Characters\Character.cs" />
+     <Compile Include="Assets\Scripts\Characters\Dino.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Player\Player.cs" />
+     <Compile Include="Assets\Scripts\Spawner.cs" />
+     <Compile Include="Assets\Scripts\TestJump.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Utility.cs" />
      <None Include="Assets\Shader\Sky.shader" />
      <None Include="Assets\Shader\Minimalist Advanced (2ColorGradient).shader" />
      <None Include="Assets\Shader\Minimalist Simple.shader" />

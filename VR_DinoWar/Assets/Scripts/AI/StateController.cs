@@ -6,18 +6,39 @@ using UnityEngine.AI;
 public class StateController : MonoBehaviour {
 
 	public State currentState;
+	public GameObject currentDestination;
+	public State remainInState;
 
-	[HideInInspector] public NavMeshAgent agent;
+
 	[HideInInspector] public Player playerReference;
+	[HideInInspector] public Enemy enemy; 	//enemy using this state controller
+
 
 	// Use this for initialization
 	void Start () {
 		playerReference = Player.instance;
-		agent = GetComponent<NavMeshAgent> ();
+		enemy = GetComponent<Enemy> ();
+
+		GetDestination ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		currentState.UpdateState (this);
+	}
+
+	public void TransitionToState(State nextState)
+	{
+		if (nextState != remainInState) {
+			currentState = nextState;
+		}
+	}
+
+	public void GetDestination()
+	{
+		GameObject[] waypointObjs = GameObject.FindGameObjectsWithTag ("Waypoint");
+		int randomNo = Random.Range (0,waypointObjs.Length);
+
+		currentDestination = waypointObjs[randomNo];
 	}
 }
