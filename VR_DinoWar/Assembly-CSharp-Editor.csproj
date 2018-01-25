@@ -54,6 +54,7 @@
      <Compile Include="Assets\Editor\MinimalistAdvancedMat.cs" />
      <Compile Include="Assets\Editor\MinimalistSimpleMat.cs" />
      <Compile Include="Assets\Editor\MinimalistStandardMat.cs" />
+     <Compile Include="Assets\Pixelplacement\iTweenPath\Editor\iTweenPathEditor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity Engine/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -155,6 +156,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{C0742003-0110-96E2-1585-25C9B9EE5EEA}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{C72B9396-EA53-0E76-0006-D3D7679036E1}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>

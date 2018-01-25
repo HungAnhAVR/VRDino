@@ -51,26 +51,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI\Action.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackAction.cs" />
-     <Compile Include="Assets\Scripts\AI\CheckAttackDecision.cs" />
-     <Compile Include="Assets\Scripts\AI\CloseIn.cs" />
-     <Compile Include="Assets\Scripts\AI\CloseInDecision.cs" />
-     <Compile Include="Assets\Scripts\AI\Decision.cs" />
-     <Compile Include="Assets\Scripts\AI\EngageAction.cs" />
-     <Compile Include="Assets\Scripts\AI\ReachedDestinationDecision.cs" />
-     <Compile Include="Assets\Scripts\AI\State.cs" />
-     <Compile Include="Assets\Scripts\AI\StateController.cs" />
-     <Compile Include="Assets\Scripts\AI\Transition.cs" />
+     <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
+     <Compile Include="Assets\Scripts\AI\Base Classes\Action.cs" />
+     <Compile Include="Assets\Scripts\AI\Base Classes\State.cs" />
+     <Compile Include="Assets\Scripts\AI\Base Classes\Transition.cs" />
+     <Compile Include="Assets\Scripts\AI\HitAndRunAction.cs" />
+     <Compile Include="Assets\Scripts\AI\HitAndRunDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\AttackAction.cs" />
+     <Compile Include="Assets\Scripts\AI\States\CheckAttackDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\CheckPlayerInRadiusDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\CloseIn.cs" />
+     <Compile Include="Assets\Scripts\AI\States\CloseInDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\Decision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\EngageAction.cs" />
+     <Compile Include="Assets\Scripts\AI\States\FollowPathAction.cs" />
+     <Compile Include="Assets\Scripts\AI\States\ReachedDestinationDecision.cs" />
+     <Compile Include="Assets\Scripts\AI\States\StateController.cs" />
      <Compile Include="Assets\Scripts\AI\Waypoint.cs" />
      <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\Scripts\Characters\Dino.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Characters\FlyingDino.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\TestJump.cs" />
+     <Compile Include="Assets\Scripts\Utilities\SkyPathManager.cs" />
      <Compile Include="Assets\Scripts\Utilities\Utility.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\CurveControlledBob.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\FirstPersonController.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\FOVKick.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\HeadBob.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\LerpControlledBob.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Toucan\First Person\Scripts\RigidbodyFirstPersonController.cs" />
+     <Compile Include="Assets\Toucan\Scripts\Damage.cs" />
+     <Compile Include="Assets\Toucan\Scripts\DestroyAtTime.cs" />
+     <Compile Include="Assets\Toucan\Scripts\ExitOnKey.cs" />
+     <Compile Include="Assets\Toucan\Scripts\Explosion.cs" />
+     <Compile Include="Assets\Toucan\Scripts\Kill.cs" />
+     <Compile Include="Assets\Toucan\Scripts\Missile.cs" />
+     <Compile Include="Assets\Toucan\Scripts\ParticleSystemDestroyer.cs" />
+     <Compile Include="Assets\Toucan\Scripts\ReloadOnKey.cs" />
+     <Compile Include="Assets\Toucan\Scripts\RespawnArround.cs" />
+     <Compile Include="Assets\Toucan\Scripts\Toucan.cs" />
      <None Include="Assets\Shader\Sky.shader" />
+     <None Include="Assets\Toucan\Readme.txt" />
      <None Include="Assets\Shader\Minimalist Advanced (2ColorGradient).shader" />
      <None Include="Assets\Shader\Minimalist Simple.shader" />
      <None Include="Assets\Shader\Minimalist Standard (2ColorGradient).shader" />
@@ -167,6 +192,10 @@
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/sonpd/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{C0742003-0110-96E2-1585-25C9B9EE5EEA}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

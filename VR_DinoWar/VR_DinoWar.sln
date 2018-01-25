@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_DinoWar", "Assembly-CSharp.csproj", "{C72B9396-EA53-0E76-0006-D3D7679036E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_DinoWar", "Assembly-CSharp-firstpass.csproj", "{C0742003-0110-96E2-1585-25C9B9EE5EEA}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_DinoWar", "Assembly-CSharp-Editor.csproj", "{4C470E0B-A12A-5688-A130-106815E2EC33}"
 EndProject
 Global
@@ -15,6 +17,10 @@ Global
 		{C72B9396-EA53-0E76-0006-D3D7679036E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72B9396-EA53-0E76-0006-D3D7679036E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72B9396-EA53-0E76-0006-D3D7679036E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0742003-0110-96E2-1585-25C9B9EE5EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0742003-0110-96E2-1585-25C9B9EE5EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0742003-0110-96E2-1585-25C9B9EE5EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0742003-0110-96E2-1585-25C9B9EE5EEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C470E0B-A12A-5688-A130-106815E2EC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C470E0B-A12A-5688-A130-106815E2EC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C470E0B-A12A-5688-A130-106815E2EC33}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -5,17 +5,28 @@ using UnityEngine.AI;
 
 public class TestJump : MonoBehaviour {
 
-	public NavMeshAgent agent;
-	public Transform destination;
 
 	void Start () {
-		agent.destination = destination.position;
-	
+		//iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("path"), "time", 40, "easetype",iTween.EaseType.linear, "orienttopath", true));
+		iTween.MoveTo(gameObject, 
+			iTween.Hash("path", iTweenPath.GetPath("path1"), 
+				"orienttopath", true, 
+				"looktime", 0.001f, 
+				"lookahead", 0.001f, 
+				"speed", 90, "easetype", 
+				iTween.EaseType.linear, 
+				"oncomplete", "onCameraShakeComplete"));
 	}
 
-	void Update()
+	void onCameraShakeComplete()
 	{
-		if(agent.isOnOffMeshLink)
-		agent.speed = 1;
+		iTween.MoveTo(gameObject, 
+			iTween.Hash("path", iTweenPath.GetPath("path1"), 
+				"orienttopath", true, 
+				"looktime", 0.001f, 
+				"lookahead", 0.001f, 
+				"speed", 90, "easetype", 
+				iTween.EaseType.linear, 
+				"oncomplete", "onCameraShakeComplete"));
 	}
 }
