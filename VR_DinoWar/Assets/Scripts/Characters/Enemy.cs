@@ -5,16 +5,30 @@ using UnityEngine.AI;
 
 public abstract class Enemy : Character {
 
-	public bool isAttk;
-	public bool isJumping;
-	public bool isWalking;
 	public bool isOnPath;
-	public bool canFly;
-	public bool hasAttacked; //has enemy attacked in a state?
+	public bool isGrounded;
+	public float attkRate;
+
+	public ENEMY_STATE animState;
 
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
 	[HideInInspector] public float initialSpeed; 
+
+	public float attkTime = 0;
+
+	public enum ENEMY_STATE
+	{
+		IDLE = 0,
+		START_WALK,
+		WALKING ,
+		START_JUMP,
+		JUMPING,
+		START_ATTK,
+		ATTKING,
+		START_PATH,
+		PATHING,
+	}
 
 	public void Initialize()
 	{
@@ -25,54 +39,113 @@ public abstract class Enemy : Character {
 
 	protected void Loop()
 	{
+		switch (animState) {
 
+		case ENEMY_STATE.START_WALK:
+			animState = ENEMY_STATE.WALKING;
+			animator.SetInteger ("State", 1);
+		
+			break;
+
+		case ENEMY_STATE.WALKING:
 			
+			break;
+
+		case ENEMY_STATE.START_JUMP:
+			animState = ENEMY_STATE.JUMPING;
+			animator.SetInteger ("State", 2);
+			break;
+
+		case ENEMY_STATE.JUMPING:
+			
+			break;
+
+		case ENEMY_STATE.START_ATTK:
+			
+			attkTime += Time.deltaTime;
+
+			if (attkTime >= attkRate) {
+
+				animState = ENEMY_STATE.ATTKING;
+				animator.SetInteger ("State", 3);
+
+			} else {
+				Wait ();
+			}
+
+			FaceTarget (agent.destination);
+
+			break;
+
+		case ENEMY_STATE.ATTKING:
+
+			break;
+
+		case ENEMY_STATE.START_PATH:
+			animState = ENEMY_STATE.PATHING;
+			Pathing ();
+			break;
+
+		case ENEMY_STATE.PATHING:
+	
+			break;
+
+		}
+			
+	}
+
+	public void Wait()
+	{
+		animator.SetInteger ("State", 0);
+	}
+
+	public void Idle()
+	{
+		if (animState == ENEMY_STATE.IDLE) {
+			return;
+		}
+		animState = ENEMY_STATE.IDLE;
+		animator.SetInteger ("State", 0);
 	}
 
 	public void Walk()
 	{
-		if (isWalking)
-			return;
-		
-		isWalking = true;
-		agent.isStopped = false;
-
-		animator.SetBool ("walking",true);
-		animator.SetBool ("jumping",false);
-		animator.SetBool ("attacking",false);
+		if (animState != ENEMY_STATE.WALKING) {
+			animState = ENEMY_STATE.START_WALK;
+		}
+		//Smooth out turns
+		agent.Move (transform.forward * Time.deltaTime * 0.5f);
 	}
 
 	public void Attack()
 	{
-		if (isAttk)
-			return;
-		
-		isAttk = true;
-
-		agent.isStopped = true;
-
-		animator.SetBool ("walking",false);
-		animator.SetBool ("jumping",false);
-		animator.SetBool ("attacking",true);
-
+		if (animState != ENEMY_STATE.ATTKING) {
+			animState = ENEMY_STATE.START_ATTK;
+		}
 	}
 
 	public void Jump()
 	{
-		if (isJumping)
-			return;
+		if (animState != ENEMY_STATE.JUMPING) {
+			animState = ENEMY_STATE.START_JUMP;
+		}
+	}
 
-		isJumping = true;
-
-		agent.speed = 1;
-
-		animator.SetBool ("walking",false);
-		animator.SetBool ("jumping",true);
-		animator.SetBool ("attacking",false);
+	public void FollowPath()
+	{
+		if (animState != ENEMY_STATE.PATHING) {
+			animState = ENEMY_STATE.START_PATH;
+		}
 	}
 
 	// Call by animation event
 	public void StartJump()
+	{
+		agent.speed = 1; //spring up
+	}
+
+	// Call by animation event
+	public void MidJump()
 	{
 		agent.speed = 5; //propels forward
 	}
@@ -80,37 +153,28 @@ public abstract class Enemy : Character {
 	// Call by animation event
 	public void EndJump()
 	{
-		agent.speed = initialSpeed; //resume walking
-		isJumping = false;
-		isWalking = false;
-		animator.SetBool ("jumping",false);
+		agent.speed = initialSpeed; //resume speed
 	}
 
 	// Call by animation event
 	public void StartAttack()
 	{
-		transform.LookAt (Player.instance.transform);
+
 	}
 
 	// Call by animation event
 	public void EndAttack()
 	{
-		isAttk = false;
-		hasAttacked = true;
+		attkTime = 0;
+		Idle ();
 	}
 
 	//Force enemy to follow a pre-defined path 
-	public void FollowPath()
+	public void Pathing()
 	{
-		if (isOnPath)
-			return;
-
-		isOnPath = true;
-
 		if(agent.isOnNavMesh)
 		agent.isStopped = true;
 
-		Random.seed = System.DateTime.Now.Millisecond;
 		int rand = Random.Range (1,6);;
 		print ("rand " + rand);
 		string pathName = "path" + rand;
@@ -120,14 +184,22 @@ public abstract class Enemy : Character {
 				"orienttopath", true, 
 				"looktime", 0.001f, 
 				"lookahead", 0.001f, 
-				"speed", 90, "easetype", 
-				iTween.EaseType.linear, 
+				"speed", 90, 
+				"easetype", iTween.EaseType.linear, 
 				"oncomplete", "OnCompletePath"));
 	}
 
 	void OnCompletePath()
 	{
-		isOnPath = false;
+		
+	}
+
+	private void FaceTarget(Vector3 destination)
+	{
+		Vector3 lookPos = destination - transform.position;
+		lookPos.y = 0;
+		Quaternion rotation = Quaternion.LookRotation(lookPos);
+		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 2);  
 	}
 		
 }

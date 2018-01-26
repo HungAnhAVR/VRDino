@@ -20,7 +20,7 @@ public class EngageAction : Action {
 		}
 
 		// Jump and walk only applies to grounded enemies
-		if (!controller.enemy.canFly) {
+		if (controller.enemy.isGrounded) {
 			if (controller.enemy.agent.isOnOffMeshLink) {
 				controller.enemy.Jump ();
 			} else {

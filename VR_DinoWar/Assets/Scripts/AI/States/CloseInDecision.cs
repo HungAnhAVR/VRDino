@@ -13,6 +13,9 @@ public class CloseInDecision : Decision {
 	bool CheckMaxAttkEnemy(StateController controller)
 	{
 
+		if (controller.playerReference == null)
+			return false;
+
 		if (controller.playerReference.enemyNo < Utility.MAX_ATTK_ENEMY) {
 
 			if(Player.instance.enemyNo < Utility.MAX_ATTK_ENEMY)

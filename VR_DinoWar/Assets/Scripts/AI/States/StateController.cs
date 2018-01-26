@@ -31,15 +31,11 @@ public class StateController : MonoBehaviour {
 		if (nextState != remainInState) {
 			currentState = nextState;
 		}
-		enemy.hasAttacked = false;
 	}
 
 	public void GetDestination()
 	{
 		string tag = "Waypoint";
-
-		if(enemy.canFly)
-			tag = "SkyWaypoint";
 		
 		GameObject[] waypointObjs = GameObject.FindGameObjectsWithTag (tag);
 		int randomNo = Random.Range (0,waypointObjs.Length);

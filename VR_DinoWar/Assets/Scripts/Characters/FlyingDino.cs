@@ -11,6 +11,6 @@ public class FlyingDino : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		Loop ();
 	}
 }

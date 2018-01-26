@@ -760,7 +760,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -954,7 +954,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -968,7 +968,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.41056913
-        functionName: StartJump
+        functionName: MidJump
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -976,6 +976,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.99932307
         functionName: EndJump
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0
+        functionName: StartJump
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

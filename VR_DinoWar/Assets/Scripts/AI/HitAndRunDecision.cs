@@ -13,11 +13,7 @@ public class HitAndRunDecision : Decision {
 
 	bool CheckAttack(StateController controller)
 	{
-		if (controller.enemy.hasAttacked) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 
 	}
 }
