@@ -1033,6 +1033,7 @@ MonoBehaviour:
   isOnPath: 0
   isGrounded: 1
   attkRate: 3
+  eyePosition: {fileID: 4005255854711766}
   animState: 0
   animator: {fileID: 0}
   agent: {fileID: 0}

@@ -15,10 +15,14 @@ public class AttackAction : Action {
 		if(controller.enemy.agent.enabled)
 		controller.enemy.agent.destination = controller.playerReference.transform.position;
 
+
+
 		float distanceToPlayer = Vector3.Distance(controller.transform.position,controller.enemy.agent.destination);
 
 		if (distanceToPlayer < controller.enemy.agent.stoppingDistance) {
 			controller.enemy.Attack ();
+		} else {
+			controller.enemy.Steer ();
 		}
 	}
 		

@@ -9,6 +9,8 @@ public abstract class Enemy : Character {
 	public bool isGrounded;
 	public float attkRate;
 
+	public Transform eyePosition;
+
 	public ENEMY_STATE animState;
 
 	[HideInInspector] public Animator animator;
@@ -114,7 +116,7 @@ public abstract class Enemy : Character {
 			animState = ENEMY_STATE.START_WALK;
 		}
 		//Smooth out turns
-		agent.Move (transform.forward * Time.deltaTime * 0.5f);
+		agent.Move (transform.forward * Time.deltaTime * 2f);
 	}
 
 	public void Attack()
@@ -122,6 +124,7 @@ public abstract class Enemy : Character {
 		if (animState != ENEMY_STATE.ATTKING) {
 			animState = ENEMY_STATE.START_ATTK;
 		}
+
 	}
 
 	public void Jump()
@@ -200,6 +203,43 @@ public abstract class Enemy : Character {
 		lookPos.y = 0;
 		Quaternion rotation = Quaternion.LookRotation(lookPos);
 		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 2);  
+	}
+
+	bool rolledRand;
+	int rand ;
+
+	//Attemp to steer away from other Enemy in front of this Enemy
+	//or smooth out turns 
+	public void Steer()
+	{
+		if (!rolledRand) {
+			rand = Random.Range (0,2);
+			rolledRand = true;
+		}
+
+		RaycastHit hit;
+
+		float distanceToObstacle = 0;
+
+		// Cast a sphere wrapping character controller 10 meters forward
+		// to see if it is about to hit anything.
+		if (Physics.SphereCast (eyePosition.position, .75f, transform.forward, out hit, 10))
+		{
+			
+			distanceToObstacle = hit.distance;
+
+			if (hit.transform.tag == "Enemy") {
+
+				if (rand == 0) {
+					agent.Move (transform.right * Time.deltaTime * 5);
+				} else {
+					agent.Move (-transform.right * Time.deltaTime * 5);
+				}
+
+			} 
+				
+		}
+	
 	}
 		
 }
