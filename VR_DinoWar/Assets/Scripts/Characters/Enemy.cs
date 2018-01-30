@@ -223,7 +223,7 @@ public abstract class Enemy : Character {
 
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, .75f, transform.forward, out hit, 10))
+		if (Physics.SphereCast (eyePosition.position, 1, transform.forward, out hit, 15))
 		{
 			
 			distanceToObstacle = hit.distance;
@@ -231,9 +231,9 @@ public abstract class Enemy : Character {
 			if (hit.transform.tag == "Enemy") {
 
 				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 5);
+					agent.Move (transform.right * Time.deltaTime * 7);
 				} else {
-					agent.Move (-transform.right * Time.deltaTime * 5);
+					agent.Move (-transform.right * Time.deltaTime * 7);
 				}
 
 			} 

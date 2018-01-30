@@ -8,7 +8,7 @@ public class StateController : MonoBehaviour {
 	public State currentState;
 	public GameObject currentDestination;
 	public State remainInState;
-
+	public bool AIEnabled;
 
 	[HideInInspector] public Player playerReference;
 	[HideInInspector] public Enemy enemy; 	//enemy using this state controller
@@ -23,6 +23,7 @@ public class StateController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(AIEnabled)
 		currentState.UpdateState (this);
 	}
 
