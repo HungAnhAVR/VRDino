@@ -10,7 +10,7 @@ public class WeaponGrab : VRTK_ChildOfControllerGrabAttach {
 
 	// Use this for initialization
 	void Start () {
-		weapon = this.GetComponent<Spear> ();
+		weapon = this.GetComponent<Weapon> ();
 	}
 
 	// Update is called once per frame
@@ -36,16 +36,15 @@ public class WeaponGrab : VRTK_ChildOfControllerGrabAttach {
 
 					if (origin != null)
 					{
-						objectRigidbody.velocity =  (objectRigidbody.transform.forward * throwMultiplier * origin.TransformVector(velocity).magnitude );
+						objectRigidbody.velocity = origin.TransformVector(velocity) * (grabbingObjectThrowMultiplier * throwMultiplier);
+						objectRigidbody.angularVelocity = origin.TransformDirection(angularVelocity);
 
 						if (weapon != null) {
 							weapon.Thrown ();
 						}
 						else {
-							Debug.Log ("NO WEAPON SCRIPT!");
+							Debug.Log ("NO SPEAR SCRIPT!");
 						}
-						//	objectRigidbody.velocity = origin.TransformVector(velocity) * (grabbingObjectThrowMultiplier * throwMultiplier);
-						objectRigidbody.angularVelocity = origin.TransformDirection(angularVelocity);
 					}
 					else
 					{

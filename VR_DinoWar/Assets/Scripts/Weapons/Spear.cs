@@ -20,4 +20,12 @@ public class Spear : Weapon {
 		CalculateVelocity ();
 	}
 
+	protected override void OnHitSurface(Transform hitSurface)
+	{
+		base.OnHitSurface (hitSurface);	
+		rb.velocity = Vector3.zero;
+		rb.isKinematic = true;		
+		transform.parent = hitSurface;
+	}
+
 }

@@ -8,11 +8,11 @@ public class Weapon : VRTK_InteractableObject {
 	// Reference to the controller holding this weapon
 	private VRTK_ControllerReference controllerReference;
 	// is the weapon being thrown?
-	private bool inFlight;
+	protected bool inFlight;
 	// initial angle before the weapon is thrown
 	private Vector3 initialAngle;
 	// local rigidbody reference
-	private Rigidbody rb;
+	protected Rigidbody rb;
 	// local collider reference 
 	public BoxCollider weaponCollider;
 	// melee collider size - for melee uses only
@@ -40,7 +40,7 @@ public class Weapon : VRTK_InteractableObject {
 	protected void Loop () {
 		// Physics hack
 		if (inFlight) {
-			transform.eulerAngles -= Vector3.left * .25f;
+			transform.eulerAngles += new Vector3( 1 * .75f , 0 , 0 );
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, initialAngle.y, initialAngle.z);
 		} 
 	}
@@ -79,13 +79,10 @@ public class Weapon : VRTK_InteractableObject {
 	}
 
 	// On hit something when thrown
-	private void OnHitSurface(Transform hitSurface)
+	protected virtual void OnHitSurface(Transform hitSurface)
 	{
 		print ("OnHitSurface" + hitSurface.name);		
-		rb.velocity = Vector3.zero;
-		rb.isKinematic = true;		
 		inFlight = false;
-		transform.parent = hitSurface;
 	}
 
 	// This is used for throwing 
@@ -102,7 +99,7 @@ public class Weapon : VRTK_InteractableObject {
 	// use for melee
 	private void OnTriggerEnter(Collider collision)
 	{
-		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
+//		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
 		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed())
 		{
 			//Only applies damage if player physically put some force to weapon

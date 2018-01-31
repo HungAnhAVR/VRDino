@@ -6,8 +6,9 @@ using UnityEngine.AI;
 public class Dino : Enemy {
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 		Initialize ();
+		yield return new WaitForSeconds (1);
 	}
 	
 	// Update is called once per frame
@@ -20,5 +21,7 @@ public class Dino : Enemy {
 		print ("IM HIT   "   + collision.transform.name);
 
 	}
+
+
 
 }

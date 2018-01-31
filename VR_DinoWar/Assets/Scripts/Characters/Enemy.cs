@@ -9,6 +9,7 @@ public abstract class Enemy : Character {
 	public bool isGrounded;
 	public float attkRate;
 
+	public GameObject body;
 	public Transform eyePosition;
 
 	public ENEMY_STATE animState;
@@ -16,6 +17,8 @@ public abstract class Enemy : Character {
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
 	[HideInInspector] public float initialSpeed; 
+
+	protected StateController stateController;
 
 	public float attkTime = 0;
 
@@ -40,6 +43,7 @@ public abstract class Enemy : Character {
 	{
 		animator = this.GetComponentInChildren<Animator> ();
 		agent = this.GetComponent<NavMeshAgent> ();
+		stateController = this.GetComponent<StateController> ();
 		initialSpeed = agent.speed;
 	}
 
@@ -100,13 +104,10 @@ public abstract class Enemy : Character {
 			animator.SetInteger ("State", -1);
 			animator.SetTrigger ("Hit");
 
-			hp -= 0;
+			hp -= 100;
 
-			if (hp < 0) {
-				Rigidbody rb = this.GetComponent<Rigidbody> ();
-				rb.isKinematic = true;
-				animator.enabled = false;
-				Player.instance.enemyNo--;
+			if (hp <= 0) {
+				Die ();
 			}
 
 			break;
@@ -165,12 +166,10 @@ public abstract class Enemy : Character {
 
 	public void Hit()
 	{
-
 		if (animState != ENEMY_STATE.HITTING) {
 			animState = ENEMY_STATE.START_HIT;
 			beingHit = true;
 		}
-
 	}
 
 	public void FollowPath()
@@ -269,7 +268,7 @@ public abstract class Enemy : Character {
 
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, 1, transform.forward, out hit, 15))
+		if (Physics.SphereCast (eyePosition.position, 1, transform.forward, out hit, 7))
 		{
 			
 			distanceToObstacle = hit.distance;
@@ -288,13 +287,26 @@ public abstract class Enemy : Character {
 	
 	}
 
-	float hp = 100;
 	public void Die()
 	{
-		Hit ();
+		Rigidbody rb = this.GetComponent<Rigidbody> ();
+		rb.isKinematic = true;
+		animator.enabled = false;
 
-		return;
+		Collider coll = this.GetComponent<Collider> ();
+		coll.enabled = false;
+		Player.instance.enemyNo--;
+		stateController.AIEnabled = false;
+		agent.isStopped = true;
 
+		//print ("lastHitDir " + 8);
+		//iTween.MoveBy(body,iTween.Hash(
+			//"x"   , (body.transform.localPosition + (body.transform.localPosition - Player.instance.transform.position.normalized ) * 6 ) ,
+			//"time", 3,
+			//"islocal",true
+		//));
 	}
-		
+
+	float hp = 100;
+
 }
