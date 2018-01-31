@@ -104,11 +104,7 @@ public abstract class Enemy : Character {
 			animator.SetInteger ("State", -1);
 			animator.SetTrigger ("Hit");
 
-			hp -= 100;
-
-			if (hp <= 0) {
-				Die ();
-			}
+			OnHit (100);
 
 			break;
 
@@ -287,7 +283,7 @@ public abstract class Enemy : Character {
 	
 	}
 
-	public void Die()
+	protected override void Die()
 	{
 		Rigidbody rb = this.GetComponent<Rigidbody> ();
 		rb.isKinematic = true;
@@ -298,7 +294,6 @@ public abstract class Enemy : Character {
 		Player.instance.enemyNo--;
 		stateController.AIEnabled = false;
 		agent.isStopped = true;
-
 		//print ("lastHitDir " + 8);
 		//iTween.MoveBy(body,iTween.Hash(
 			//"x"   , (body.transform.localPosition + (body.transform.localPosition - Player.instance.transform.position.normalized ) * 6 ) ,
@@ -306,7 +301,5 @@ public abstract class Enemy : Character {
 			//"islocal",true
 		//));
 	}
-
-	float hp = 100;
 
 }

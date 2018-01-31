@@ -4,15 +4,20 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public int hitPoints;
+
+	public void OnHit(int dmg)
+	{
+		hitPoints -= dmg;
+
+		if (hitPoints <= 0) {
+			Die ();
+		}
 	}
 
+	protected virtual void Die()
+	{
+
+	}
 
 }

@@ -23,6 +23,7 @@ public class Spear : Weapon {
 	protected override void OnHitSurface(Transform hitSurface)
 	{
 		base.OnHitSurface (hitSurface);	
+		// Stop spear dead on its track
 		rb.velocity = Vector3.zero;
 		rb.isKinematic = true;		
 		transform.parent = hitSurface;
