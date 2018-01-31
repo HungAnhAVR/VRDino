@@ -15,5 +15,10 @@ public class Dino : Enemy {
 		Loop ();
 	}
 
+	private void OnCollisionEnter(Collision collision)
+	{
+		print ("IM HIT   "   + collision.transform.name);
+
+	}
 
 }

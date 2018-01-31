@@ -30,7 +30,11 @@ public abstract class Enemy : Character {
 		ATTKING,
 		START_PATH,
 		PATHING,
+		START_HIT,
+		HITTING,
 	}
+
+	bool beingHit = false;
 
 	public void Initialize()
 	{
@@ -89,7 +93,27 @@ public abstract class Enemy : Character {
 			break;
 
 		case ENEMY_STATE.PATHING:
-	
+			break;
+
+		case ENEMY_STATE.START_HIT:
+			animState = ENEMY_STATE.HITTING;
+			animator.SetInteger ("State", -1);
+			animator.SetTrigger ("Hit");
+
+			hp -= 0;
+
+			if (hp < 0) {
+				Rigidbody rb = this.GetComponent<Rigidbody> ();
+				rb.isKinematic = true;
+				animator.enabled = false;
+				Player.instance.enemyNo--;
+			}
+
+			break;
+
+		case ENEMY_STATE.HITTING:
+
+		
 			break;
 
 		}
@@ -112,6 +136,9 @@ public abstract class Enemy : Character {
 
 	public void Walk()
 	{
+		if (beingHit)
+			return;
+		
 		if (animState != ENEMY_STATE.WALKING) {
 			animState = ENEMY_STATE.START_WALK;
 		}
@@ -121,6 +148,8 @@ public abstract class Enemy : Character {
 
 	public void Attack()
 	{
+		if (beingHit)
+			return;
 		if (animState != ENEMY_STATE.ATTKING) {
 			animState = ENEMY_STATE.START_ATTK;
 		}
@@ -132,6 +161,16 @@ public abstract class Enemy : Character {
 		if (animState != ENEMY_STATE.JUMPING) {
 			animState = ENEMY_STATE.START_JUMP;
 		}
+	}
+
+	public void Hit()
+	{
+
+		if (animState != ENEMY_STATE.HITTING) {
+			animState = ENEMY_STATE.START_HIT;
+			beingHit = true;
+		}
+
 	}
 
 	public void FollowPath()
@@ -169,6 +208,13 @@ public abstract class Enemy : Character {
 	public void EndAttack()
 	{
 		attkTime = 0;
+		Idle ();
+	}
+
+	// Call by animation event
+	public void EndHit()
+	{
+		beingHit = false;
 		Idle ();
 	}
 
@@ -231,15 +277,24 @@ public abstract class Enemy : Character {
 			if (hit.transform.tag == "Enemy") {
 
 				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 7);
+					agent.Move (transform.right * Time.deltaTime * 9);
 				} else {
-					agent.Move (-transform.right * Time.deltaTime * 7);
+					agent.Move (-transform.right * Time.deltaTime * 9);
 				}
 
 			} 
 				
 		}
 	
+	}
+
+	float hp = 100;
+	public void Die()
+	{
+		Hit ();
+
+		return;
+
 	}
 		
 }
