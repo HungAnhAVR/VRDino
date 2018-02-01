@@ -5,18 +5,26 @@ using VRTK;
 
 public class Club : Weapon {
 
+	protected override void Awake()
+	{
+		base.Awake ();
+		InteractableObjectGrabbed += new InteractableObjectEventHandler(ResetPosition);
+	}
+
 	void Start()
 	{
 		Initialize ();
-	}
-
-	void Update()
-	{
 
 	}
 
-	void FixedUpdate()
+	protected override void Update()
 	{
+		base.Update ();
+	}
+		
+	protected override void FixedUpdate()
+	{
+		base.FixedUpdate ();
 		CalculateVelocity ();
 	}
 

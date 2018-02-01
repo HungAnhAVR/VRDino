@@ -11,8 +11,6 @@ public class Weapon : VRTK_InteractableObject {
 	protected bool inFlight;
 	// initial angle before the weapon is thrown
 	private Vector3 initialAngle;
-	// local rigidbody reference
-	protected Rigidbody rb;
 	// local collider reference 
 	public BoxCollider weaponCollider;
 	// melee collider size - for melee uses only
@@ -33,7 +31,6 @@ public class Weapon : VRTK_InteractableObject {
 
 	// Use this for initialization
 	protected void Initialize () {
-		rb = this.GetComponent<Rigidbody> ();
 		weaponCollider.isTrigger = true;
 	}
 
@@ -69,11 +66,18 @@ public class Weapon : VRTK_InteractableObject {
 		controllerReference = VRTK_ControllerReference.GetControllerReference(grabbingObject.controllerEvents.gameObject);
 
 		weaponCollider.size = meleeScale;
-		ResetPosition ();
+		interactableRigidbody.isKinematic = false;
 	}
 
-	public void ResetPosition()
+	protected void ResetPosition(object sender, InteractableObjectEventArgs e)
 	{
+		print ("ResetPosition");
+		StartCoroutine (ResetPosition_async());
+	}
+
+	IEnumerator ResetPosition_async()
+	{
+		yield return new WaitForEndOfFrame();
 		transform.localPosition = Vector3.zero;
 		transform.localEulerAngles = Vector3.zero;
 	}
@@ -117,6 +121,8 @@ public class Weapon : VRTK_InteractableObject {
 			enemy.Hit ();
 		}
 	}
+
+
 
 
 }

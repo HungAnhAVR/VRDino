@@ -5,18 +5,26 @@ using VRTK;
 
 public class Spear : Weapon {
 	
+	protected override void Awake()
+	{
+		base.Awake ();
+		InteractableObjectGrabbed += new InteractableObjectEventHandler(ResetPosition);
+	}
+
 	void Start()
 	{
 		Initialize ();
 	}
 
-	void Update()
+	protected override void Update()
 	{
+		base.Update ();
 		Loop ();
 	}
 
-	void FixedUpdate()
+	protected override void FixedUpdate()
 	{
+		base.FixedUpdate ();
 		CalculateVelocity ();
 	}
 
@@ -24,8 +32,8 @@ public class Spear : Weapon {
 	{
 		base.OnHitSurface (hitSurface);	
 		// Stop spear dead on its track
-		rb.velocity = Vector3.zero;
-		rb.isKinematic = true;		
+		interactableRigidbody.velocity = Vector3.zero;
+		interactableRigidbody.isKinematic = true;		
 		transform.parent = hitSurface;
 	}
 

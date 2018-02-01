@@ -26,8 +26,8 @@
                 grabbingController.AttemptGrab();
                 spawnDelayTimer = Time.time + spawnDelay;
 
-				Spear spear = newArrow.GetComponent<Spear> ();
-				spear.ResetPosition ();
+//				Spear spear = newArrow.GetComponent<Spear> ();
+//				spear.ResetPosition ();
             }
         }
 

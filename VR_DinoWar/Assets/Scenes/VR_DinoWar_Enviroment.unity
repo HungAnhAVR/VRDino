@@ -13148,6 +13148,12 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c3400c214a0384b4687b6816e21be3d6, type: 3}
   m_PrefabInternal: {fileID: 725947112}
+--- !u!114 &524940619 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114443899190217340, guid: a281fd4d27e12b04aa6bf68b6d3c91f6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1676494103}
+  m_Script: {fileID: 11500000, guid: 01da5653a61b66448acd0afde05a1f44, type: 3}
 --- !u!4 &527171738 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c3400c214a0384b4687b6816e21be3d6, type: 3}
@@ -15275,8 +15281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bbc5c81652cb540b08c6085deb568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 1306258725666592, guid: a281fd4d27e12b04aa6bf68b6d3c91f6,
-    type: 2}
+  arrowPrefab: {fileID: 182108, guid: da23bdf76745c6c4f9258cd40e3d4859, type: 2}
   spawnDelay: 0
 --- !u!23 &590763859
 MeshRenderer:
@@ -17247,6 +17252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08b42abb5fe54d42a34acdced9d14b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoints: 0
   isOnPath: 0
   isGrounded: 0
   attkRate: 0
@@ -19965,7 +19971,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -70
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
@@ -19975,7 +19981,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1000012696903278, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3, type: 2}
       propertyPath: m_TagString
@@ -24942,18 +24948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnObjectAutoGrabCompleted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1454603173}
-        m_MethodName: ResetPosition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: VRTK.UnityEventHelper.VRTK_ObjectAutoGrab_UnityEvents+ObjectAutoGrabEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &974782052
@@ -24967,7 +24962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cdac96da703d7488a11cc3bde08cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToGrab: {fileID: 1454603173}
+  objectToGrab: {fileID: 524940619}
   objectIsPrefab: 0
   cloneGrabbedObject: 0
   alwaysCloneOnEnable: 0
@@ -34690,6 +34685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c88908cb81e6a4496c36f142a86487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoints: 0
   enemyNo: 0
 --- !u!1 &1368414235
 GameObject:
@@ -37188,12 +37184,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c3400c214a0384b4687b6816e21be3d6, type: 3}
   m_PrefabInternal: {fileID: 1540376483}
---- !u!114 &1454603173 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114276634103418682, guid: fcbb15880ad479c4d8ea49b0bf9b021f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1529311822}
-  m_Script: {fileID: 11500000, guid: c87e5d13be8d9204cae0682619bb76ce, type: 3}
 --- !u!4 &1457337323 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c3400c214a0384b4687b6816e21be3d6, type: 3}
@@ -39777,6 +39767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08b42abb5fe54d42a34acdced9d14b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoints: 0
   isOnPath: 0
   isGrounded: 0
   attkRate: 0
@@ -40381,6 +40372,48 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 605e212927b4af346a13f54f19aaa82f, type: 3}
   m_PrefabInternal: {fileID: 2050957735}
+--- !u!1001 &1588045014
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -21.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 11.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -43.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555122766058696, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0feff3c9c37ca234a8eddda4493a8d45, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1588754256
 Prefab:
   m_ObjectHideFlags: 0
@@ -45693,6 +45726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08b42abb5fe54d42a34acdced9d14b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoints: 0
   isOnPath: 0
   isGrounded: 0
   attkRate: 0
