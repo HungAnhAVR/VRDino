@@ -16,7 +16,7 @@
         private GameObject currentArrow;
         private BowHandle handle;
 
-        private VRTK_InteractableObject interact;
+		private Weapon interact;
 
         private VRTK_InteractGrab holdControl;
         private VRTK_InteractGrab stringControl;
@@ -52,12 +52,19 @@
         {
             bowAnimation = GetComponent<BowAnimation>();
             handle = GetComponentInChildren<BowHandle>();
-            interact = GetComponent<VRTK_InteractableObject>();
-            interact.InteractableObjectGrabbed += new InteractableObjectEventHandler(DoObjectGrab);
+			print ("A");
         }
+
+		void Awake()
+		{
+			interact = GetComponent<Weapon>();
+			interact.InteractableObjectGrabbed += new InteractableObjectEventHandler(DoObjectGrab);
+			print ("F");
+		}
 
         private void DoObjectGrab(object sender, InteractableObjectEventArgs e)
         {
+			print ("BBB");
             if (VRTK_DeviceFinder.IsControllerLeftHand(e.interactingObject))
             {
                 holdControl = VRTK_DeviceFinder.GetControllerLeftHand().GetComponent<VRTK_InteractGrab>();

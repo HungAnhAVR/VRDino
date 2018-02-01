@@ -31,6 +31,7 @@ public class Weapon : VRTK_InteractableObject {
 
 	// Use this for initialization
 	protected void Initialize () {
+		if(weaponCollider != null)
 		weaponCollider.isTrigger = true;
 	}
 
@@ -65,6 +66,7 @@ public class Weapon : VRTK_InteractableObject {
 		base.Grabbed(grabbingObject);
 		controllerReference = VRTK_ControllerReference.GetControllerReference(grabbingObject.controllerEvents.gameObject);
 
+		if(weaponCollider != null)
 		weaponCollider.size = meleeScale;
 		interactableRigidbody.isKinematic = false;
 	}
