@@ -265,4 +265,4 @@ MonoBehaviour:
   meleeScale: {x: 1.622442, y: 1.339961, z: 17}
   thrownScale: {x: 1.622442, y: 1.339961, z: 5.759605}
   weaponTip: {fileID: 4923178080238928}
-  minForce: 0
+  minForce: 8

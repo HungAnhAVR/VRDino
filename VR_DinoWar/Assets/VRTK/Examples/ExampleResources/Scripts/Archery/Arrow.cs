@@ -67,6 +67,12 @@
             {
                 ResetArrow();
             }
+
+			CheckIfEnemyAndDealDamage (collision.transform);
+			// Stop spear dead on its track
+			rigidBody.velocity = Vector3.zero;
+			rigidBody.isKinematic = true;		
+			transform.parent = collision.transform;
         }
 
         private void RecreateNotch()
@@ -98,5 +104,17 @@
             Destroy(arrowHolder, time);
             Destroy(gameObject, time);
         }
+
+		Enemy enemy;
+		void CheckIfEnemyAndDealDamage(Transform t)
+		{
+			enemy = t.root.GetComponent<Enemy> ();
+			// If player indeed hit the enemy
+			if (enemy != null) {
+				enemy.Hit (Vector3.zero);
+			}
+		}
+
+
     }
 }

@@ -9,8 +9,9 @@ public class Dino : Enemy {
 	IEnumerator Start () {
 		Initialize ();
 		yield return new WaitForSeconds (1);
+
 	}
-	
+	public float force;
 	// Update is called once per frame
 	void Update () {
 		Loop ();

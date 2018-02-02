@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour {
 	public GameObject clubPrefab;
 	public GameObject spearPrefab;
 	public GameObject bowPrefab;
+	public GameObject grenadePrefab;
 
 	public Transform rightHand;
 	public Transform leftHand;
@@ -49,8 +50,14 @@ public class Inventory : MonoBehaviour {
 		Grab (isRightHand,bowPrefab);
 	}
 
+	public void GetGrenade(bool isRightHand = true)
+	{
+		Grab (isRightHand,grenadePrefab);
+	}
+
 	void Grab(bool isRightHand,GameObject prefab)
 	{
+		print ("INVE");
 		bool dropped = Drop (isRightHand,prefab);
 
 		if (!dropped)

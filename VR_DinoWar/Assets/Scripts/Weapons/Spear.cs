@@ -20,12 +20,13 @@ public class Spear : Weapon {
 	{
 		base.Update ();
 		Loop ();
+		CalculateVelocity ();
 	}
 
 	protected override void FixedUpdate()
 	{
 		base.FixedUpdate ();
-		CalculateVelocity ();
+
 	}
 
 	protected override void OnHitSurface(Transform hitSurface)

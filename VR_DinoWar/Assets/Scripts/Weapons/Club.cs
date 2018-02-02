@@ -20,6 +20,7 @@ public class Club : Weapon {
 	protected override void Update()
 	{
 		base.Update ();
+		Loop ();
 	}
 		
 	protected override void FixedUpdate()

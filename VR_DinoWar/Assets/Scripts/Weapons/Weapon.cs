@@ -6,7 +6,7 @@ using VRTK;
 public class Weapon : VRTK_InteractableObject {
 
 	// Reference to the controller holding this weapon
-	private VRTK_ControllerReference controllerReference;
+	protected VRTK_ControllerReference controllerReference;
 	// is the weapon being thrown?
 	protected bool inFlight;
 	// initial angle before the weapon is thrown
@@ -26,13 +26,17 @@ public class Weapon : VRTK_InteractableObject {
 	private Vector3 previous;
 	private float velocity;
 
+	// store last known position of weapon
+	public Vector3 lastKnownPos;
+	private float lastKnownCount = 0;
+
 	// Cache
-	private Enemy enemy;
+	protected Enemy enemy;
 
 	// Use this for initialization
 	protected void Initialize () {
 		if(weaponCollider != null)
-		weaponCollider.isTrigger = true;
+		weaponCollider.isTrigger = false;
 	}
 
 	protected void Loop () {
@@ -41,6 +45,15 @@ public class Weapon : VRTK_InteractableObject {
 			transform.eulerAngles += new Vector3( 1 * .75f , 0 , 0 );
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, initialAngle.y, initialAngle.z);
 		} 
+
+	
+		lastKnownCount += Time.deltaTime;
+
+		if (lastKnownCount > .5f) {
+			lastKnownCount = 0;
+			lastKnownPos = weaponTip.position;
+		}
+
 	}
 
 	// Put this in FixedUpdate()
@@ -51,7 +64,7 @@ public class Weapon : VRTK_InteractableObject {
 	}
 
 	// when weapon is thrown
-	public void Thrown()
+	public virtual void Thrown()
 	{
 		inFlight = true;
 		initialAngle = transform.eulerAngles;
@@ -68,7 +81,7 @@ public class Weapon : VRTK_InteractableObject {
 
 		if(weaponCollider != null)
 		weaponCollider.size = meleeScale;
-		interactableRigidbody.isKinematic = false;
+		//interactableRigidbody.isKinematic = false;
 	}
 
 	protected void ResetPosition(object sender, InteractableObjectEventArgs e)
@@ -94,33 +107,43 @@ public class Weapon : VRTK_InteractableObject {
 	// This is used for throwing 
 	private void OnCollisionEnter(Collision collision)
 	{
+		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
 		// This means that the weapon is thrown and hit a surface
 		if (inFlight) {
 			OnHitSurface (collision.transform);
-			CheckIfEnemyAndDealDamage (collision.transform);
+			CheckIfEnemyAndDealDamage (collision.transform,collision.contacts[0].point);
 			inFlight = false;
+		}
+
+		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed())
+		{
+			//Only applies damage if player physically put some force to weapon
+			if ( velocity > minForce) {
+				CheckIfEnemyAndDealDamage (collision.transform,lastKnownPos);
+			//	print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
+			}
 		}
 	}
 
 	// use for melee
-	private void OnTriggerEnter(Collider collision)
+	private void OnTriggerEnter2(Collider collision)
 	{
 //		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
 		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed())
 		{
 			//Only applies damage if player physically put some force to weapon
 			if ( velocity > minForce) {
-				CheckIfEnemyAndDealDamage (collision.transform);
+//				CheckIfEnemyAndDealDamage (collision.transform);
 			}
 		}
 	}
 
-	void CheckIfEnemyAndDealDamage(Transform t)
+	protected void CheckIfEnemyAndDealDamage(Transform t,Vector3 collisionPoint)
 	{
 		enemy = t.root.GetComponent<Enemy> ();
 		// If player indeed hit the enemy
 		if (enemy != null) {
-			enemy.Hit ();
+			enemy.Hit (collisionPoint);
 		}
 	}
 

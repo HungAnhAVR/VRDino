@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e23b1abfb90b4545b6fa6541bd4bb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerMultiplier: 20
+  powerMultiplier: 40
   pullMultiplier: 1.5
   pullOffset: 0.025
   maxPullDistance: 1.3
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   rightSnapHandle: {fileID: 4305852716216102}
   leftSnapHandle: {fileID: 0}
   throwVelocityWithAttachDistance: 0
-  throwMultiplier: 1
+  throwMultiplier: 10
   onGrabCollisionDelay: 0
 --- !u!114 &114724878188922848
 MonoBehaviour:

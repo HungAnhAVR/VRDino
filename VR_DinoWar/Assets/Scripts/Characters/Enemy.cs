@@ -14,6 +14,8 @@ public abstract class Enemy : Character {
 
 	public ENEMY_STATE animState;
 
+	Vector3 collisionPoint;
+
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
 	[HideInInspector] public float initialSpeed; 
@@ -105,7 +107,7 @@ public abstract class Enemy : Character {
 			animator.SetTrigger ("Hit");
 
 			OnHit (100);
-
+			print ("OnHit");
 			break;
 
 		case ENEMY_STATE.HITTING:
@@ -160,11 +162,12 @@ public abstract class Enemy : Character {
 		}
 	}
 
-	public void Hit()
+	public void Hit(Vector3 collisionPoint)
 	{
 		if (animState != ENEMY_STATE.HITTING) {
 			animState = ENEMY_STATE.START_HIT;
 			beingHit = true;
+			this.collisionPoint = collisionPoint;
 		}
 	}
 
@@ -264,7 +267,7 @@ public abstract class Enemy : Character {
 
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, 1, transform.forward, out hit, 7))
+		if (Physics.SphereCast (eyePosition.position, .5f, transform.forward, out hit, 7))
 		{
 			
 			distanceToObstacle = hit.distance;
@@ -272,9 +275,9 @@ public abstract class Enemy : Character {
 			if (hit.transform.tag == "Enemy") {
 
 				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 9);
+					agent.Move (transform.right * Time.deltaTime * 7);
 				} else {
-					agent.Move (-transform.right * Time.deltaTime * 9);
+					agent.Move (-transform.right * Time.deltaTime * 7);
 				}
 
 			} 
@@ -293,13 +296,32 @@ public abstract class Enemy : Character {
 		coll.enabled = false;
 		Player.instance.enemyNo--;
 		stateController.AIEnabled = false;
-		agent.isStopped = true;
-		//print ("lastHitDir " + 8);
+		agent.enabled = false;
+
+	
+		ApplyPhysics ();
+
 		//iTween.MoveBy(body,iTween.Hash(
-			//"x"   , (body.transform.localPosition + (body.transform.localPosition - Player.instance.transform.position.normalized ) * 6 ) ,
-			//"time", 3,
-			//"islocal",true
+		//	"x"   , -dir.x * 10,
+		//	"z"   , -dir.z * 10,
+		//	"time", 3,
+		//	"islocal",true
 		//));
 	}
 
+
+	protected virtual void ApplyPhysics()
+	{
+		Vector3 dir = (collisionPoint - transform.position);
+		//testRB.AddForceAtPosition (new Vector3(dir.x,0,dir.z)* 10, testRB.transform.position);
+		agent.enabled = false;
+	}
+
+	public void Blast(Vector3 center)
+	{
+		OnHit (1000);
+		testRB.AddExplosionForce (3000,center,100);
+	}
+
+	public Rigidbody testRB;
 }

@@ -4,12 +4,12 @@
 
     public class ArrowNotch : MonoBehaviour
     {
-        private GameObject arrow;
+        public GameObject arrow;
         private VRTK_InteractableObject obj;
 
         private void Start()
         {
-            arrow = transform.Find("Arrow").gameObject;
+          //  arrow = transform.Find("Arrow").gameObject;
             obj = GetComponent<VRTK_InteractableObject>();
         }
 
