@@ -10,7 +10,7 @@ public class Weapon : VRTK_InteractableObject {
 	// is the weapon being thrown?
 	protected bool inFlight;
 	// initial angle before the weapon is thrown
-	private Vector3 initialAngle;
+	protected Vector3 initialAngle;
 	// local collider reference 
 	public BoxCollider weaponCollider;
 	// melee collider size - for melee uses only
@@ -26,10 +26,6 @@ public class Weapon : VRTK_InteractableObject {
 	private Vector3 previous;
 	private float velocity;
 
-	// store last known position of weapon
-	public Vector3 lastKnownPos;
-	private float lastKnownCount = 0;
-
 	// Cache
 	protected Enemy enemy;
 
@@ -42,18 +38,9 @@ public class Weapon : VRTK_InteractableObject {
 	protected void Loop () {
 		// Physics hack
 		if (inFlight) {
-			transform.eulerAngles += new Vector3( 1 * .75f , 0 , 0 );
-			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, initialAngle.y, initialAngle.z);
+			transform.eulerAngles = new Vector3( transform.eulerAngles.x + .25f, initialAngle.y , initialAngle.z );
+			//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, initialAngle.y, initialAngle.z);
 		} 
-
-	
-		lastKnownCount += Time.deltaTime;
-
-		if (lastKnownCount > .5f) {
-			lastKnownCount = 0;
-			lastKnownPos = weaponTip.position;
-		}
-
 	}
 
 	// Put this in FixedUpdate()
@@ -119,7 +106,7 @@ public class Weapon : VRTK_InteractableObject {
 		{
 			//Only applies damage if player physically put some force to weapon
 			if ( velocity > minForce) {
-				CheckIfEnemyAndDealDamage (collision.transform,lastKnownPos);
+				CheckIfEnemyAndDealDamage (collision.transform,collision.contacts[0].point);
 			//	print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
 			}
 		}

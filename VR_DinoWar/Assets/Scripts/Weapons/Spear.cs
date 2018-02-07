@@ -15,17 +15,28 @@ public class Spear : Weapon {
 	{
 		Initialize ();
 	}
-
+	float num = 0;
 	protected override void Update()
 	{
 		base.Update ();
-		Loop ();
-		CalculateVelocity ();
+
+		if (inFlight) {
+			transform.eulerAngles += Vector3.one * 1f;
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x,initialAngle.y,initialAngle.z);
+		}
+
+			
 	}
+	Vector3 vec ;
 
 	protected override void FixedUpdate()
 	{
 		base.FixedUpdate ();
+		CalculateVelocity ();
+	}
+
+	void SpearPhysics()
+	{
 
 	}
 
@@ -35,6 +46,7 @@ public class Spear : Weapon {
 		// Stop spear dead on its track
 		interactableRigidbody.velocity = Vector3.zero;
 		interactableRigidbody.isKinematic = true;		
+		weaponCollider.enabled = false;
 		transform.parent = hitSurface;
 	}
 

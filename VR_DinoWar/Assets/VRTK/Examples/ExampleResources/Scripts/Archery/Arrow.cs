@@ -111,7 +111,7 @@
 			enemy = t.root.GetComponent<Enemy> ();
 			// If player indeed hit the enemy
 			if (enemy != null) {
-				enemy.Hit (Vector3.zero);
+				enemy.Hit (t.position);
 			}
 		}
 

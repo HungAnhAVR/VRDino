@@ -5,28 +5,20 @@ using UnityEngine.AI;
 
 public class TestJump : MonoBehaviour {
 
-
-	void Start () {
-		//iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("path"), "time", 40, "easetype",iTween.EaseType.linear, "orienttopath", true));
-		iTween.MoveTo(gameObject, 
-			iTween.Hash("path", iTweenPath.GetPath("path1"), 
-				"orienttopath", true, 
-				"looktime", 0.001f, 
-				"lookahead", 0.001f, 
-				"speed", 90, "easetype", 
-				iTween.EaseType.linear, 
-				"oncomplete", "onCameraShakeComplete"));
-	}
-
-	void onCameraShakeComplete()
+	public NavMeshAgent agent;
+	public Transform destination;
+	public Rigidbody rb;
+	public Animator anim;
+	IEnumerator Start()
 	{
-		iTween.MoveTo(gameObject, 
-			iTween.Hash("path", iTweenPath.GetPath("path1"), 
-				"orienttopath", true, 
-				"looktime", 0.001f, 
-				"lookahead", 0.001f, 
-				"speed", 90, "easetype", 
-				iTween.EaseType.linear, 
-				"oncomplete", "onCameraShakeComplete"));
+		yield return new WaitForSeconds(1);
+
+		//Vector3 vel = destination.position - rb.transform.position;
+		//rb.AddForceAtPosition (vel * 10000, rb.transform.position);
+
+		rb.transform.position += Vector3.right * .5f;
+
+
 	}
+
 }

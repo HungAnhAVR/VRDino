@@ -8,7 +8,7 @@ public class StateController : MonoBehaviour {
 	public State currentState;
 	public GameObject currentDestination;
 	public State remainInState;
-	public bool AIEnabled;
+	public  bool AIEnabled;
 
 	[HideInInspector] public Player playerReference;
 	[HideInInspector] public Enemy enemy; 	//enemy using this state controller
@@ -16,8 +16,8 @@ public class StateController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		playerReference = Player.instance;
-		enemy = GetComponent<Enemy> ();
-
+		enemy = transform.root.GetComponent<Enemy> ();
+	
 		GetDestination ();
 	}
 	

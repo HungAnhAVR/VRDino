@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using RootMotion.Dynamics;
 
 public abstract class Enemy : Character {
 
@@ -13,6 +14,8 @@ public abstract class Enemy : Character {
 	public Transform eyePosition;
 
 	public ENEMY_STATE animState;
+
+	public PuppetMaster puppetMaster;
 
 	Vector3 collisionPoint;
 
@@ -43,9 +46,9 @@ public abstract class Enemy : Character {
 
 	public void Initialize()
 	{
-		animator = this.GetComponentInChildren<Animator> ();
-		agent = this.GetComponent<NavMeshAgent> ();
-		stateController = this.GetComponent<StateController> ();
+		animator = this.GetComponent<Animator> ();
+		agent = this.GetComponentInChildren<NavMeshAgent> ();
+		stateController = this.GetComponentInChildren<StateController> ();
 		initialSpeed = agent.speed;
 	}
 
@@ -106,7 +109,7 @@ public abstract class Enemy : Character {
 			animator.SetInteger ("State", -1);
 			animator.SetTrigger ("Hit");
 
-			OnHit (100);
+			OnHit (25);
 			print ("OnHit");
 			break;
 
@@ -243,10 +246,11 @@ public abstract class Enemy : Character {
 
 	private void FaceTarget(Vector3 destination)
 	{
-		Vector3 lookPos = destination - transform.position;
+		
+		Vector3 lookPos = destination - body.transform.position;
 		lookPos.y = 0;
 		Quaternion rotation = Quaternion.LookRotation(lookPos);
-		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 2);  
+		body.transform.rotation = Quaternion.Slerp(body.transform.rotation, rotation, 2);  
 	}
 
 	bool rolledRand;
@@ -288,32 +292,19 @@ public abstract class Enemy : Character {
 
 	protected override void Die()
 	{
-		Rigidbody rb = this.GetComponent<Rigidbody> ();
-		rb.isKinematic = true;
-		animator.enabled = false;
-
-		Collider coll = this.GetComponent<Collider> ();
-		coll.enabled = false;
 		Player.instance.enemyNo--;
-		stateController.AIEnabled = false;
-		agent.enabled = false;
-
-	
+		stateController.enabled = false;
+		animator.enabled = false;
+		agent.isStopped = true;
+		puppetMaster.Kill (PuppetMaster.StateSettings.Default);
 		ApplyPhysics ();
-
-		//iTween.MoveBy(body,iTween.Hash(
-		//	"x"   , -dir.x * 10,
-		//	"z"   , -dir.z * 10,
-		//	"time", 3,
-		//	"islocal",true
-		//));
 	}
 
 
 	protected virtual void ApplyPhysics()
 	{
-		Vector3 dir = (collisionPoint - transform.position);
-		//testRB.AddForceAtPosition (new Vector3(dir.x,0,dir.z)* 10, testRB.transform.position);
+		Vector3 dir = ( body.transform.position - collisionPoint);
+		testRB.AddForceAtPosition (dir* 30000, collisionPoint);
 		agent.enabled = false;
 	}
 

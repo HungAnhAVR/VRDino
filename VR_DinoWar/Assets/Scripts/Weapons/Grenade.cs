@@ -17,6 +17,7 @@ public class Grenade : Weapon {
 	void Start () {
 		Initialize ();
 		blastRadius.enabled = false;
+		Thrown ();
 	}
 	
 	// when weapon is thrown
@@ -38,6 +39,11 @@ public class Grenade : Weapon {
 		// If player indeed hit the enemy
 		if (enemy != null) {
 			enemy.Blast (transform.position);
+		}
+
+		Rigidbody rb = t.GetComponent<Rigidbody> ();
+		if (rb != null) {
+			rb.AddExplosionForce (1000,transform.position,100);
 		}
 	}
 
