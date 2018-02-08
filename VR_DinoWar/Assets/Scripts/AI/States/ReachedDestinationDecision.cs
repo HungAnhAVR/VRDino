@@ -6,8 +6,8 @@ public class ReachedDestinationDecision : Decision {
 
 	public override bool Decide (StateController controller)
 	{
-		bool foundWaypoint = CheckDestination (controller);
-		return foundWaypoint;
+		bool check = CheckDestination (controller);
+		return check;
 	}
 
 	private bool CheckDestination(StateController controller)
@@ -15,11 +15,11 @@ public class ReachedDestinationDecision : Decision {
 		float distanceFromDestination = Vector3.Distance (controller.transform.position,controller.enemy.agent.destination);
 
 		if (distanceFromDestination < controller.enemy.agent.stoppingDistance) {
-			controller.GetDestination (); //Reset destionation
 			return true;
 		} else {
 			return false;
 		}
+
 
 	}
 }

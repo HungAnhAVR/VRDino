@@ -106,8 +106,6 @@ public abstract class Enemy : Character {
 
 		case ENEMY_STATE.START_HIT:
 			animState = ENEMY_STATE.HITTING;
-			animator.SetInteger ("State", -1);
-			animator.SetTrigger ("Hit");
 
 			OnHit (25);
 			print ("OnHit");
@@ -145,7 +143,12 @@ public abstract class Enemy : Character {
 			animState = ENEMY_STATE.START_WALK;
 		}
 		//Smooth out turns
-		agent.Move (transform.forward * Time.deltaTime * 2f);
+		//agent.Move (transform.forward * Time.deltaTime * 2f);
+		Steer();
+
+		if (agent.isOnOffMeshLink) {
+			Jump ();
+		}
 	}
 
 	public void Attack()
@@ -167,11 +170,7 @@ public abstract class Enemy : Character {
 
 	public void Hit(Vector3 collisionPoint)
 	{
-		if (animState != ENEMY_STATE.HITTING) {
-			animState = ENEMY_STATE.START_HIT;
-			beingHit = true;
-			this.collisionPoint = collisionPoint;
-		}
+			OnHit (25);
 	}
 
 	public void FollowPath()
@@ -215,7 +214,6 @@ public abstract class Enemy : Character {
 	// Call by animation event
 	public void EndHit()
 	{
-		beingHit = false;
 		Idle ();
 	}
 
@@ -271,23 +269,20 @@ public abstract class Enemy : Character {
 
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, .5f, transform.forward, out hit, 7))
+		if (Physics.SphereCast (eyePosition.position, .25f, transform.forward, out hit, 15))
 		{
-			
 			distanceToObstacle = hit.distance;
 
 			if (hit.transform.tag == "Enemy") {
 
 				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 7);
+					agent.Move (transform.right * Time.deltaTime * 8);
 				} else {
-					agent.Move (-transform.right * Time.deltaTime * 7);
+					agent.Move (-transform.right * Time.deltaTime * 8);
 				}
-
 			} 
-				
 		}
-	
+
 	}
 
 	protected override void Die()
@@ -304,8 +299,7 @@ public abstract class Enemy : Character {
 	protected virtual void ApplyPhysics()
 	{
 		Vector3 dir = ( body.transform.position - collisionPoint);
-		testRB.AddForceAtPosition (dir* 30000, collisionPoint);
-		agent.enabled = false;
+		testRB.AddForceAtPosition (dir* 50, collisionPoint);
 	}
 
 	public void Blast(Vector3 center)

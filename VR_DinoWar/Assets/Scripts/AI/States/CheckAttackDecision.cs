@@ -6,12 +6,26 @@ public class CheckAttackDecision : Decision {
 
 	public override bool Decide (StateController controller)
 	{
-		bool decide = CheckAttack (controller);
+		bool decide = CheckMaxAttkEnemy (controller);
 		return decide;
 	}
 
-	bool CheckAttack(StateController controller)
+	bool CheckMaxAttkEnemy(StateController controller)
 	{
-		return true;
+
+		if (controller.playerReference == null)
+			return false;
+
+		if (controller.playerReference.enemyNo < Utility.MAX_ATTK_ENEMY) {
+
+			if(Player.instance.enemyNo < Utility.MAX_ATTK_ENEMY)
+				Player.instance.enemyNo++;
+
+			return true;
+		} else {
+
+			return false;
+		}
+
 	}
 }
