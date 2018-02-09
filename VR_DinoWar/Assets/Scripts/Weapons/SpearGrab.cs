@@ -40,7 +40,12 @@ public class SpearGrab : VRTK_ChildOfControllerGrabAttach {
 						//objectRigidbody.velocity = origin.TransformVector(velocity) * (grabbingObjectThrowMultiplier * throwMultiplier);
 				//		objectRigidbody.angularVelocity = origin.TransformDirection(angularVelocity);
 						if (spear != null) {
-							spear.Thrown ();
+
+							if(objectRigidbody.velocity.magnitude < 7.5f)
+								spear.Thrown (false);
+							else
+								spear.Thrown ();
+							
 							print (objectRigidbody.velocity.magnitude);
 						}
 						else {

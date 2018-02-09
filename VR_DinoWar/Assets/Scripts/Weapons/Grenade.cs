@@ -21,7 +21,7 @@ public class Grenade : Weapon {
 	}
 	
 	// when weapon is thrown
-	public override void Thrown()
+	public override void Thrown(bool enoughForce = true)
 	{
 		base.Thrown ();
 		StartCoroutine (Explode());

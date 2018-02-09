@@ -51,7 +51,7 @@ public class Weapon : VRTK_InteractableObject {
 	}
 
 	// when weapon is thrown
-	public virtual void Thrown()
+	public virtual void Thrown(bool enoughForce = true)
 	{
 		inFlight = true;
 		initialAngle = transform.eulerAngles;

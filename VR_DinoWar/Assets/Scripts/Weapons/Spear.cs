@@ -6,6 +6,7 @@ using VRTK;
 public class Spear : Weapon {
 
 	public Collider spearTipCollider;
+	public bool enoughForce;
 	
 	protected override void Awake()
 	{
@@ -37,9 +38,10 @@ public class Spear : Weapon {
 
 	}
 
-	public override void Thrown()
+	public override void Thrown(bool enoughForce = true)
 	{
 		base.Thrown ();
+		this.enoughForce = enoughForce;
 	}
 
 	protected override void FixedUpdate()
@@ -57,11 +59,17 @@ public class Spear : Weapon {
 	{
 		base.OnHitSurface (hitSurface);	
 
-		interactableRigidbody.isKinematic = true;		
-		weaponCollider.enabled = false;
+		if (enoughForce) {
+			weaponCollider.enabled = false;
+			interactableRigidbody.isKinematic = true;	
+		} else {
+
+		}
 
 		if (hitSurface.tag == "Enemy") {
 			transform.parent = hitSurface.transform;
+			weaponCollider.enabled = false;
+			interactableRigidbody.isKinematic = true;	
 		}
 
 		hasHitSurface = true;
