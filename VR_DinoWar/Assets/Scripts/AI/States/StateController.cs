@@ -10,6 +10,7 @@ public class StateController : MonoBehaviour {
 	public State remainInState;
 	public  bool AIEnabled;
 
+	[HideInInspector] public float minimumRange = 2;
 	[HideInInspector] public Player playerReference;
 	[HideInInspector] public Enemy enemy; 	//enemy using this state controller
 
@@ -25,6 +26,8 @@ public class StateController : MonoBehaviour {
 	void Update () {
 		if(AIEnabled)
 		currentState.UpdateState (this);
+		if(!playerReference)
+			playerReference = Player.instance;
 	}
 
 	public void TransitionToState(State nextState)

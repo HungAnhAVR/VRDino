@@ -57,7 +57,6 @@ public class Inventory : MonoBehaviour {
 
 	void Grab(bool isRightHand,GameObject prefab)
 	{
-		print ("INVE");
 		bool dropped = Drop (isRightHand,prefab);
 
 		if (!dropped)
@@ -85,7 +84,6 @@ public class Inventory : MonoBehaviour {
 					RightHandGrab.ForceRelease ();
 					return true;
 				} else {
-					print ("SAME TYPE");
 					return false;
 				}
 			
@@ -97,7 +95,6 @@ public class Inventory : MonoBehaviour {
 					LeftHandGrab.ForceRelease ();
 					return true;
 				} else {
-					print ("SAME TYPE");
 					return false;
 				}
 			}

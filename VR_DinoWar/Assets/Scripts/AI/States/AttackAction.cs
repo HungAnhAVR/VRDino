@@ -12,12 +12,9 @@ public class AttackAction : Action {
 
 	private void Attack(StateController controller)
 	{
-		if(controller.enemy.agent.enabled)
-		controller.enemy.agent.destination = controller.playerReference.transform.position;
+		float distanceToPlayer = Vector3.Distance(controller.transform.position,controller.playerReference.transform.position);
 
-		float distanceToPlayer = Vector3.Distance(controller.transform.position,controller.enemy.agent.destination);
-
-		if (distanceToPlayer <= controller.enemy.agent.stoppingDistance + 1) {
+		if (distanceToPlayer <= 2) {
 			controller.enemy.Attack ();
 		} else {
 			controller.enemy.Steer ();

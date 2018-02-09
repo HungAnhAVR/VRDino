@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 153295474775484034}
   m_Layer: 0
   m_Name: Bip002 Pelvis
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 65290567420918280}
   m_Layer: 0
   m_Name: Bip002 R Foot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 153411855650817592}
   m_Layer: 0
   m_Name: Bip002 Spine1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,9 +150,10 @@ GameObject:
   - component: {fileID: 4862138874880048}
   - component: {fileID: 114763509729482494}
   - component: {fileID: 195379353639427396}
+  - component: {fileID: 208650515411453788}
   m_Layer: 0
   m_Name: Dummy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +384,7 @@ GameObject:
   - component: {fileID: 153463573978209034}
   m_Layer: 0
   m_Name: Bip002 L Calf
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -491,7 +492,7 @@ GameObject:
   - component: {fileID: 153431556020944322}
   m_Layer: 0
   m_Name: Bip002 R Forearm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,7 +522,7 @@ GameObject:
   - component: {fileID: 4209224070832800}
   m_Layer: 0
   m_Name: Dummy Behaviours
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -554,7 +555,7 @@ GameObject:
   - component: {fileID: 153358324601391894}
   m_Layer: 0
   m_Name: Bip002 L Forearm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -572,7 +573,7 @@ GameObject:
   - component: {fileID: 153497073707905064}
   m_Layer: 0
   m_Name: Bip002 L UpperArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,7 +666,7 @@ GameObject:
   - component: {fileID: 153686416828475096}
   m_Layer: 0
   m_Name: Bip002 R UpperArm
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +697,7 @@ GameObject:
   - component: {fileID: 114818239989063174}
   m_Layer: 0
   m_Name: Dummy PuppetMaster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -729,7 +730,7 @@ GameObject:
   - component: {fileID: 153781194220565526}
   m_Layer: 0
   m_Name: Bip002 R Thigh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -792,7 +793,7 @@ GameObject:
   - component: {fileID: 65825932514389674}
   m_Layer: 0
   m_Name: Bip002 L Foot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -900,7 +901,7 @@ GameObject:
   - component: {fileID: 153450097592723200}
   m_Layer: 0
   m_Name: Bip002 R Calf
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -935,6 +936,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1780140026175976
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4333837329664654}
+  - component: {fileID: 33219295867855210}
+  - component: {fileID: 65033278437375196}
+  - component: {fileID: 23758573745429752}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1789276135948116
 GameObject:
   m_ObjectHideFlags: 1
@@ -948,7 +967,7 @@ GameObject:
   - component: {fileID: 153521549248287120}
   m_Layer: 0
   m_Name: Bip002 Head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -981,7 +1000,7 @@ GameObject:
   - component: {fileID: 153633220762241184}
   m_Layer: 0
   m_Name: Bip002 L Thigh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1521,6 +1540,19 @@ Transform:
   m_Father: {fileID: 4526515783759416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4333837329664654
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780140026175976}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.441, z: 2}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 4862138874880048}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4335466631270864
 Transform:
   m_ObjectHideFlags: 1
@@ -1866,8 +1898,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138040223076522}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: -26.83, y: 10.94, z: -38.66}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -21.88, y: 8.98, z: -38.66}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4209224070832800}
   - {fileID: 4030758695568900}
@@ -2165,6 +2197,7 @@ Transform:
   m_Children:
   - {fileID: 4308517092617606}
   - {fileID: 4121194775939746}
+  - {fileID: 4333837329664654}
   m_Father: {fileID: 4620431386245530}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2267,6 +2300,47 @@ Transform:
   m_Father: {fileID: 4346690872922794}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23758573745429752
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780140026175976}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33219295867855210
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780140026175976}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54119804209636204
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2462,6 +2536,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65033278437375196
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780140026175976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65239095238750264
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2542,6 +2628,7 @@ MonoBehaviour:
   currentDestination: {fileID: 0}
   remainInState: {fileID: 11400000, guid: ec04b6017f2c8b540b2374c4c965129e, type: 2}
   AIEnabled: 1
+  minimumRange: 2
   playerReference: {fileID: 0}
   enemy: {fileID: 0}
 --- !u!114 &114818239989063174
@@ -2822,14 +2909,15 @@ MonoBehaviour:
   isGrounded: 1
   attkRate: 3
   body: {fileID: 1055841004821860}
-  eyePosition: {fileID: 4751872238076422}
+  eyePosition: {fileID: 4333837329664654}
   animState: 0
   puppetMaster: {fileID: 114818239989063174}
   animator: {fileID: 95556607249149404}
   agent: {fileID: 0}
   initialSpeed: 0
+  obs: {fileID: 0}
   attkTime: 0
-  testRB: {fileID: 54620414793544912}
+  pelvisRigidbody: {fileID: 54620414793544912}
   force: 0
 --- !u!135 &135297888893079992
 SphereCollider:
@@ -3059,7 +3147,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.41099006, y: -0.0000017506536, z: 0.00000013005356}
+  m_ConnectedAnchor: {x: -0.41098905, y: -0.0000006754417, z: 0.00000014122944}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3153,7 +3241,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -26.83, y: 11.835605, z: -38.656578}
+  m_ConnectedAnchor: {x: -21.88, y: 10.054726, z: -38.65589}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2
@@ -3247,7 +3335,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24303347, y: 0.00000083446514, z: -0.00000094622374}
+  m_ConnectedAnchor: {x: -0.24303319, y: 0.0000015795233, z: -0.00000028312206}
   serializedVersion: 2
   m_SecondaryAxis: {x: 1, y: 0, z: 0}
   m_XMotion: 0
@@ -3341,7 +3429,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.19843352, y: -0.003005609, z: 0.000000008381903}
+  m_ConnectedAnchor: {x: -0.19843376, y: -0.003005609, z: 0.000000008381903}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3435,7 +3523,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24303252, y: -0.00000014901161, z: -0.0000010952353}
+  m_ConnectedAnchor: {x: -0.24303225, y: -0.00000029802322, z: 0.000000059604645}
   serializedVersion: 2
   m_SecondaryAxis: {x: 1, y: 0, z: 0}
   m_XMotion: 0
@@ -3529,7 +3617,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.42230627, y: 0.0000010860292, z: 0.00000050384546}
+  m_ConnectedAnchor: {x: -0.42230698, y: -0.0000008626264, z: -0.0000007878988}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3623,7 +3711,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.42230687, y: -0.00000032314892, z: 0.00000021606684}
+  m_ConnectedAnchor: {x: -0.4223068, y: 0.0000009627147, z: -0.0000004088506}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3717,7 +3805,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.41098896, y: 0.0000010346993, z: -0.00000093395073}
+  m_ConnectedAnchor: {x: -0.4109894, y: -0.0000014889517, z: 0.00000034196117}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3811,7 +3899,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.31132293, y: 0.0021171195, z: 0.20798999}
+  m_ConnectedAnchor: {x: -0.3113228, y: 0.0021171167, z: 0.20798934}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -3905,7 +3993,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.4459539, y: 0.044618037, z: -0.0000007892684}
+  m_ConnectedAnchor: {x: -0.44595355, y: 0.044617437, z: 0.0000008014285}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3999,7 +4087,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000035762787, y: 0.00000068807867, z: 0.096502304}
+  m_ConnectedAnchor: {x: 0.0000004172325, y: -0.0000012190371, z: 0.0965023}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -4093,7 +4181,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.31132334, y: 0.002117563, z: -0.2079894}
+  m_ConnectedAnchor: {x: -0.31132302, y: 0.002120774, z: -0.20798907}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: -1}
   m_XMotion: 0
@@ -4187,7 +4275,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000059604645, y: 0.00000006070468, z: -0.096502304}
+  m_ConnectedAnchor: {x: -0.00000035762787, y: 0.0000013326585, z: -0.0965023}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -4279,12 +4367,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 1055841004821860}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.2
-  m_Speed: 3.5
+  m_Radius: 0.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 1.25
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -4292,3 +4380,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208650515411453788
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055841004821860}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.125, y: 0.125, z: 0.125}
+  m_MoveThreshold: 0
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.49, z: 0}
+  m_TimeToStationary: 0

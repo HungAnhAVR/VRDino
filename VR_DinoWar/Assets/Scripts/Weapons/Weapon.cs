@@ -90,11 +90,9 @@ public class Weapon : VRTK_InteractableObject {
 		print ("OnHitSurface" + hitSurface.name);		
 		inFlight = false;
 	}
-
-	// This is used for throwing 
-	private void OnCollisionEnter(Collision collision)
+		
+	protected virtual void OnCollisionEnter(Collision collision)
 	{
-		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
 		// This means that the weapon is thrown and hit a surface
 		if (inFlight) {
 			OnHitSurface (collision.transform);
@@ -111,20 +109,7 @@ public class Weapon : VRTK_InteractableObject {
 			}
 		}
 	}
-
-	// use for melee
-	private void OnTriggerEnter2(Collider collision)
-	{
-//		print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
-		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed())
-		{
-			//Only applies damage if player physically put some force to weapon
-			if ( velocity > minForce) {
-//				CheckIfEnemyAndDealDamage (collision.transform);
-			}
-		}
-	}
-
+		
 	protected void CheckIfEnemyAndDealDamage(Transform t,Vector3 collisionPoint)
 	{
 		enemy = t.root.GetComponent<Enemy> ();
@@ -134,7 +119,12 @@ public class Weapon : VRTK_InteractableObject {
 		}
 	}
 
-
+	public override void Ungrabbed(VRTK_InteractGrab previousGrabbingObject = null)
+	{
+		base.Ungrabbed (previousGrabbingObject);
+		weaponCollider.isTrigger = false;
+		weaponCollider.size = thrownScale;
+	}
 
 
 }

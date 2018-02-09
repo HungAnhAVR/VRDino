@@ -22,6 +22,7 @@ public abstract class Enemy : Character {
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
 	[HideInInspector] public float initialSpeed; 
+	[HideInInspector] public NavMeshObstacle obs;
 
 	protected StateController stateController;
 
@@ -38,22 +39,20 @@ public abstract class Enemy : Character {
 		ATTKING,
 		START_PATH,
 		PATHING,
-		START_HIT,
-		HITTING,
 	}
-
-	bool beingHit = false;
 
 	public void Initialize()
 	{
 		animator = this.GetComponent<Animator> ();
 		agent = this.GetComponentInChildren<NavMeshAgent> ();
 		stateController = this.GetComponentInChildren<StateController> ();
+		obs = this.GetComponentInChildren<NavMeshObstacle> ();
 		initialSpeed = agent.speed;
 	}
 
 	protected void Loop()
 	{
+
 		switch (animState) {
 
 		case ENEMY_STATE.START_WALK:
@@ -88,12 +87,11 @@ public abstract class Enemy : Character {
 				Wait ();
 			}
 
-			FaceTarget (agent.destination);
+			FaceTarget (Player.instance.transform.position);
 
 			break;
 
 		case ENEMY_STATE.ATTKING:
-
 			break;
 
 		case ENEMY_STATE.START_PATH:
@@ -104,20 +102,10 @@ public abstract class Enemy : Character {
 		case ENEMY_STATE.PATHING:
 			break;
 
-		case ENEMY_STATE.START_HIT:
-			animState = ENEMY_STATE.HITTING;
-
-			OnHit (25);
-			print ("OnHit");
-			break;
-
-		case ENEMY_STATE.HITTING:
-
-		
-			break;
-
 		}
-			
+
+		TrackObstacle ();
+		TrackHitFreq ();
 	}
 
 	public void Wait()
@@ -136,14 +124,10 @@ public abstract class Enemy : Character {
 
 	public void Walk()
 	{
-		if (beingHit)
-			return;
-		
 		if (animState != ENEMY_STATE.WALKING) {
 			animState = ENEMY_STATE.START_WALK;
 		}
 		//Smooth out turns
-		//agent.Move (transform.forward * Time.deltaTime * 2f);
 		Steer();
 
 		if (agent.isOnOffMeshLink) {
@@ -153,12 +137,9 @@ public abstract class Enemy : Character {
 
 	public void Attack()
 	{
-		if (beingHit)
-			return;
 		if (animState != ENEMY_STATE.ATTKING) {
 			animState = ENEMY_STATE.START_ATTK;
 		}
-
 	}
 
 	public void Jump()
@@ -170,7 +151,12 @@ public abstract class Enemy : Character {
 
 	public void Hit(Vector3 collisionPoint)
 	{
+		if (!isHit) {
+			this.collisionPoint = collisionPoint;
+			isHit = true;
 			OnHit (25);
+		}
+
 	}
 
 	public void FollowPath()
@@ -211,12 +197,6 @@ public abstract class Enemy : Character {
 		Idle ();
 	}
 
-	// Call by animation event
-	public void EndHit()
-	{
-		Idle ();
-	}
-
 	//Force enemy to follow a pre-defined path 
 	public void Pathing()
 	{
@@ -224,7 +204,6 @@ public abstract class Enemy : Character {
 		agent.isStopped = true;
 
 		int rand = Random.Range (1,6);;
-		print ("rand " + rand);
 		string pathName = "path" + rand;
 
 		iTween.MoveTo(gameObject, 
@@ -244,7 +223,6 @@ public abstract class Enemy : Character {
 
 	private void FaceTarget(Vector3 destination)
 	{
-		
 		Vector3 lookPos = destination - body.transform.position;
 		lookPos.y = 0;
 		Quaternion rotation = Quaternion.LookRotation(lookPos);
@@ -267,22 +245,26 @@ public abstract class Enemy : Character {
 
 		float distanceToObstacle = 0;
 
+		if (!agent.enabled)
+			return;
+
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, .25f, transform.forward, out hit, 15))
+		if (Physics.SphereCast (eyePosition.position, 2f, eyePosition.forward , out hit, 70))
 		{
 			distanceToObstacle = hit.distance;
 
 			if (hit.transform.tag == "Enemy") {
-
+//				print (transform.name + " spotted " +hit.transform.name);
 				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 8);
+					agent.Move (body.transform.right * Time.deltaTime * (float)Random.Range(5,10)/10);
 				} else {
-					agent.Move (-transform.right * Time.deltaTime * 8);
+					agent.Move (-body.transform.right * Time.deltaTime * (float)Random.Range(5,10)/10);
 				}
 			} 
 		}
 
+		Debug.DrawLine (eyePosition.position,eyePosition.transform.position + eyePosition.forward * 35, Color.blue);
 	}
 
 	protected override void Die()
@@ -290,8 +272,9 @@ public abstract class Enemy : Character {
 		Player.instance.enemyNo--;
 		stateController.enabled = false;
 		animator.enabled = false;
-		agent.isStopped = true;
 		puppetMaster.Kill (PuppetMaster.StateSettings.Default);
+		agent.enabled = false;
+		obs.enabled = false;
 		ApplyPhysics ();
 	}
 
@@ -299,14 +282,48 @@ public abstract class Enemy : Character {
 	protected virtual void ApplyPhysics()
 	{
 		Vector3 dir = ( body.transform.position - collisionPoint);
-		testRB.AddForceAtPosition (dir* 50, collisionPoint);
+		pelvisRigidbody.AddForceAtPosition (dir* 25000, collisionPoint);
 	}
 
 	public void Blast(Vector3 center)
 	{
 		OnHit (1000);
-		testRB.AddExplosionForce (3000,center,100);
+		pelvisRigidbody.AddExplosionForce (3000,center,100);
 	}
 
-	public Rigidbody testRB;
+	public Rigidbody pelvisRigidbody;
+
+	void TrackObstacle()
+	{
+		if (animState == ENEMY_STATE.ATTKING || animState == ENEMY_STATE.START_ATTK || animState == ENEMY_STATE.IDLE) {
+
+			if(agent.enabled)
+				agent.enabled = false;
+			if(!obs.enabled)
+				obs.enabled = true;
+			
+		} else {
+			if(!agent.enabled)
+				agent.enabled = true;
+			if(obs.enabled)
+				obs.enabled = false;
+		}
+
+	}
+
+	float hitTimecount = 0;
+	float hitFreq = .5f;
+	bool isHit;
+	void TrackHitFreq()
+	{
+		if (isHit) {
+			hitTimecount += Time.deltaTime;
+
+			if (hitTimecount > hitFreq) {
+				hitTimecount = 0;
+				isHit = false;
+			}
+
+		}
+	}
 }

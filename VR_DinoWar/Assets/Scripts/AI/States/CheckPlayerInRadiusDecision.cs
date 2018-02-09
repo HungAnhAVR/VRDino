@@ -14,7 +14,7 @@ public class CheckPlayerInRadiusDecision : Decision {
 	{
 		float distanceToPlayer = Vector3.Distance (controller.enemy.body.transform.position,controller.playerReference.transform.position);
 
-		if (distanceToPlayer < controller.enemy.agent.stoppingDistance + 1) {
+		if (distanceToPlayer < controller.minimumRange) {
 			return true;
 		} else {
 			return false;

@@ -4,6 +4,8 @@ using UnityEngine;
 using VRTK;
 
 public class Spear : Weapon {
+
+	public Collider spearTipCollider;
 	
 	protected override void Awake()
 	{
@@ -15,19 +17,30 @@ public class Spear : Weapon {
 	{
 		Initialize ();
 	}
-	float num = 0;
+
+	float angle;
+
 	protected override void Update()
 	{
 		base.Update ();
 
 		if (inFlight) {
-			transform.eulerAngles += Vector3.one * 1f;
-			transform.eulerAngles = new Vector3 (transform.eulerAngles.x,initialAngle.y,initialAngle.z);
+
+			angle = transform.eulerAngles.x;
+			angle += Time.deltaTime * 40;
+			transform.eulerAngles = new Vector3 (angle, initialAngle.y, initialAngle.z);
+
 		}
 
-			
+		//if(!hasHitSurface)
+		//print (interactableRigidbody.velocity.magnitude);
+
 	}
-	Vector3 vec ;
+
+	public override void Thrown()
+	{
+		base.Thrown ();
+	}
 
 	protected override void FixedUpdate()
 	{
@@ -43,11 +56,16 @@ public class Spear : Weapon {
 	protected override void OnHitSurface(Transform hitSurface)
 	{
 		base.OnHitSurface (hitSurface);	
-		// Stop spear dead on its track
-		interactableRigidbody.velocity = Vector3.zero;
+
 		interactableRigidbody.isKinematic = true;		
 		weaponCollider.enabled = false;
-		transform.parent = hitSurface;
-	}
 
+		if (hitSurface.tag == "Enemy") {
+			transform.parent = hitSurface.transform;
+		}
+
+		hasHitSurface = true;
+	}
+		
+	bool hasHitSurface;
 }

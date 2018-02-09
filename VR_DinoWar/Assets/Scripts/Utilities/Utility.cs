@@ -20,5 +20,5 @@ public class Utility {
 		}
 	}
 
-	public const int MAX_ATTK_ENEMY = 5;
+	public const int MAX_ATTK_ENEMY = 4;
 }

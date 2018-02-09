@@ -12,9 +12,17 @@ public class GoToPlayerAction : Action {
 
 	private void GoToPlayer(StateController controller)
 	{
-		controller.enemy.agent.destination = controller.playerReference.transform.position;
 
-		controller.enemy.Walk ();
+		float distanceToPlayer = Vector3.Distance(controller.transform.position,controller.playerReference.transform.position);
+
+		if (distanceToPlayer <= controller.minimumRange) {
+
+		} else {
+			if (controller.enemy.agent.enabled) {
+				controller.enemy.agent.destination = controller.playerReference.transform.position;
+				controller.enemy.Walk ();
+			}
+		}
 
 	}
 }
