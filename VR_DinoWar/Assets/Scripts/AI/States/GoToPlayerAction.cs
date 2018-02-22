@@ -18,10 +18,12 @@ public class GoToPlayerAction : Action {
 		if (distanceToPlayer <= controller.minimumRange) {
 
 		} else {
-			if (controller.enemy.agent.enabled) {
-				controller.enemy.agent.destination = controller.playerReference.transform.position;
-				controller.enemy.Walk ();
+			if (!controller.enemy.agent.enabled) {
+				controller.enemy.agent.enabled = true;
 			}
+			controller.enemy.agent.destination = controller.playerReference.transform.position;
+			controller.enemy.Walk ();
+			controller.enemy.Steer();
 		}
 
 	}

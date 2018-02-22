@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using RootMotion.Dynamics;
 
 public class Dino : Enemy {
+
 
 	// Use this for initialization
 	IEnumerator Start () {
 		Initialize ();
+		Rigidbody[] rbs = this.GetComponentsInChildren<Rigidbody> ();
+		foreach(Rigidbody rb in rbs)
+		{
+			rb.useGravity = false;
+			rb.isKinematic = false;
+		}
 		yield return new WaitForSeconds (1);
-
 	}
-	public float force;
+		
 	// Update is called once per frame
 	void Update () {
 		Loop ();
@@ -19,8 +26,19 @@ public class Dino : Enemy {
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		print ("IM HIT   "   + collision.transform.name);
 
+	}
+
+	public Rigidbody pelvis;
+	protected override void ApplyPhysics()
+	{
+		Rigidbody[] rbs = this.GetComponentsInChildren<Rigidbody> ();
+		foreach(Rigidbody rb in rbs)
+		{
+			rb.useGravity = true;
+		}
+		bodyIK.enabled = false;
+		animator.enabled = false;
 	}
 
 

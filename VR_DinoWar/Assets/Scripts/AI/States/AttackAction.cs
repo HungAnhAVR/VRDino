@@ -17,7 +17,7 @@ public class AttackAction : Action {
 		if (distanceToPlayer <= 2) {
 			controller.enemy.Attack ();
 		} else {
-			controller.enemy.Steer ();
+
 		}
 
 	}

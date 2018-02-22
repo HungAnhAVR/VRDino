@@ -2904,7 +2904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716505ec9ed993945a265605dc491fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 100
+  hitPoints: 50
   isOnPath: 0
   isGrounded: 1
   attkRate: 3

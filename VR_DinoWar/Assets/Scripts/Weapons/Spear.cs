@@ -32,7 +32,7 @@ public class Spear : Weapon {
 			transform.eulerAngles = new Vector3 (angle, initialAngle.y, initialAngle.z);
 
 		}
-
+		//transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y + 6f, transform.eulerAngles.z);
 		//if(!hasHitSurface)
 		//print (interactableRigidbody.velocity.magnitude);
 
@@ -66,7 +66,8 @@ public class Spear : Weapon {
 
 		}
 
-		if (hitSurface.tag == "Enemy") {
+		Enemy enemy = hitSurface.root.GetComponent<Enemy> ();
+		if (enemy != null) {
 			transform.parent = hitSurface.transform;
 			weaponCollider.enabled = false;
 			interactableRigidbody.isKinematic = true;	
@@ -76,4 +77,5 @@ public class Spear : Weapon {
 	}
 		
 	bool hasHitSurface;
+
 }

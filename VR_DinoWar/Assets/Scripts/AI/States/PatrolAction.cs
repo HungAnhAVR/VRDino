@@ -12,6 +12,12 @@ public class PatrolAction : Action {
 
 	private void Patrol(StateController controller)
 	{
+		controller.enemy.Walk ();
+
+		if (!controller.enemy.agent.enabled) {
+			return;
+		}
+
 		if (controller.enemy.agent.isStopped) {
 			controller.enemy.agent.isStopped = false;
 		}
@@ -19,8 +25,7 @@ public class PatrolAction : Action {
 		if (controller.enemy.agent.remainingDistance < controller.enemy.agent.stoppingDistance) {
 			controller.enemy.agent.destination = GetRandomDestination ();
 		} 
-
-		controller.enemy.Walk ();
+			
 	}
 
 	public Vector3 GetRandomDestination()

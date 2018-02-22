@@ -12,7 +12,7 @@ public class CheckPlayerInRadiusDecision : Decision {
 
 	bool CheckAttack(StateController controller)
 	{
-		float distanceToPlayer = Vector3.Distance (controller.enemy.body.transform.position,controller.playerReference.transform.position);
+		float distanceToPlayer = Vector3.Distance (controller.enemy.transform.position,controller.playerReference.transform.position);
 
 		if (distanceToPlayer < controller.minimumRange) {
 			return true;

@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 114102011391573040}
   - component: {fileID: 114257144848005808}
   - component: {fileID: 114367900650243990}
+  - component: {fileID: 65285587593899166}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -1216,6 +1217,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65285587593899166
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355081691729094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65424884004664358
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1326,7 +1339,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   usingState: 0
-  weaponCollider: {fileID: 0}
+  weaponCollider: {fileID: 65285587593899166}
   meleeScale: {x: 0, y: 0, z: 0}
   thrownScale: {x: 0, y: 0, z: 0}
   weaponTip: {fileID: 0}

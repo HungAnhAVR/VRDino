@@ -90,32 +90,34 @@ public class Weapon : VRTK_InteractableObject {
 		print ("OnHitSurface" + hitSurface.name);		
 		inFlight = false;
 	}
-		
+	private float impactMagnifier = 120f;
+	private float collisionForce = 0f;
+	private float maxCollisionForce = 4000f;
 	protected virtual void OnCollisionEnter(Collision collision)
 	{
 		// This means that the weapon is thrown and hit a surface
 		if (inFlight) {
 			OnHitSurface (collision.transform);
-			CheckIfEnemyAndDealDamage (collision.transform,collision.contacts[0].point);
+			CheckIfEnemyAndDealDamage (collision,collision.contacts[0].point,velocity);
 			inFlight = false;
 		}
 
-		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed())
+		if (VRTK_ControllerReference.IsValid(controllerReference) && IsGrabbed() && velocity > 8)
 		{
-			//Only applies damage if player physically put some force to weapon
-			if ( velocity > minForce) {
-				CheckIfEnemyAndDealDamage (collision.transform,collision.contacts[0].point);
-			//	print ("spearVelocity " +  velocity + " collision " + collision.transform.name);
-			}
+			collisionForce = VRTK_DeviceFinder.GetControllerVelocity(controllerReference).magnitude * impactMagnifier;
+			var hapticStrength = collisionForce / maxCollisionForce;
+			VRTK_ControllerHaptics.TriggerHapticPulse(controllerReference, hapticStrength, 0.5f, 0.01f);
+			CheckIfEnemyAndDealDamage (collision,collision.contacts[0].point,velocity);
 		}
 	}
 		
-	protected void CheckIfEnemyAndDealDamage(Transform t,Vector3 collisionPoint)
+	protected void CheckIfEnemyAndDealDamage(Collision collision,Vector3 collisionPoint,float force)
 	{
-		enemy = t.root.GetComponent<Enemy> ();
+		enemy = collision.transform.root.GetComponent<Enemy> ();
 		// If player indeed hit the enemy
 		if (enemy != null) {
-			enemy.Hit (collisionPoint);
+			enemy.Hit (collision.collider,collisionPoint,force);
+			print (collision.collider + "        "+collisionPoint);
 		}
 	}
 

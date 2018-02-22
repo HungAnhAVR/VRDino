@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RootMotion.Dynamics;
+using RootMotion.FinalIK;
 
 public abstract class Enemy : Character {
 
@@ -10,14 +11,9 @@ public abstract class Enemy : Character {
 	public bool isGrounded;
 	public float attkRate;
 
-	public GameObject body;
-	public Transform eyePosition;
-
 	public ENEMY_STATE animState;
-
-	public PuppetMaster puppetMaster;
-
-	Vector3 collisionPoint;
+	public HitReaction hitReaction;
+	public FullBodyBipedIK bodyIK;
 
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
@@ -39,6 +35,7 @@ public abstract class Enemy : Character {
 		ATTKING,
 		START_PATH,
 		PATHING,
+		DIE
 	}
 
 	public void Initialize()
@@ -53,6 +50,9 @@ public abstract class Enemy : Character {
 	protected void Loop()
 	{
 
+		if (animState == ENEMY_STATE.DIE)
+			return;
+		
 		switch (animState) {
 
 		case ENEMY_STATE.START_WALK:
@@ -106,6 +106,7 @@ public abstract class Enemy : Character {
 
 		TrackObstacle ();
 		TrackHitFreq ();
+		//Steer ();
 	}
 
 	public void Wait()
@@ -128,7 +129,7 @@ public abstract class Enemy : Character {
 			animState = ENEMY_STATE.START_WALK;
 		}
 		//Smooth out turns
-		Steer();
+		//Steer();
 
 		if (agent.isOnOffMeshLink) {
 			Jump ();
@@ -149,11 +150,14 @@ public abstract class Enemy : Character {
 		}
 	}
 
-	public void Hit(Vector3 collisionPoint)
+	public void Hit(Collider hitCollider,Vector3 collisionPoint,float impact)
 	{
 		if (!isHit) {
-			this.collisionPoint = collisionPoint;
+			
 			isHit = true;
+			Vector3 dir = hitCollider.transform.position - collisionPoint;
+			hitReaction.Hit (hitCollider,dir.normalized * impact/6 ,collisionPoint);
+
 			OnHit (25);
 		}
 
@@ -223,10 +227,10 @@ public abstract class Enemy : Character {
 
 	private void FaceTarget(Vector3 destination)
 	{
-		Vector3 lookPos = destination - body.transform.position;
+		Vector3 lookPos = destination - transform.position;
 		lookPos.y = 0;
 		Quaternion rotation = Quaternion.LookRotation(lookPos);
-		body.transform.rotation = Quaternion.Slerp(body.transform.rotation, rotation, 2);  
+		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 2);  
 	}
 
 	bool rolledRand;
@@ -250,49 +254,51 @@ public abstract class Enemy : Character {
 
 		// Cast a sphere wrapping character controller 10 meters forward
 		// to see if it is about to hit anything.
-		if (Physics.SphereCast (eyePosition.position, 2f, eyePosition.forward , out hit, 70))
-		{
-			distanceToObstacle = hit.distance;
+		Vector3 fwd = transform.position + new Vector3(0,1,0);
+		fwd = transform.TransformDirection(Vector3.forward);
+
+		if (Physics.Raycast (transform.position + new Vector3 (-1, 1, 0), fwd, out hit, 10)) {
 
 			if (hit.transform.tag == "Enemy") {
-//				print (transform.name + " spotted " +hit.transform.name);
+
 				if (rand == 0) {
-					agent.Move (body.transform.right * Time.deltaTime * (float)Random.Range(5,10)/10);
+					agent.Move (transform.right * Time.deltaTime * 1);
 				} else {
-					agent.Move (-body.transform.right * Time.deltaTime * (float)Random.Range(5,10)/10);
+					agent.Move (-transform.right* Time.deltaTime * 1);
 				}
-			} 
+
+				print("There is something in front of the object!" + hit.transform.name);
+			}
+
 		}
 
-		Debug.DrawLine (eyePosition.position,eyePosition.transform.position + eyePosition.forward * 35, Color.blue);
+		
+
+
+		Debug.DrawLine (transform.position + new Vector3(-1,1,0) ,transform.transform.position + transform.forward * 35, Color.blue);
 	}
 
 	protected override void Die()
 	{
+		animState = ENEMY_STATE.DIE;
 		Player.instance.enemyNo--;
 		stateController.enabled = false;
-		animator.enabled = false;
-		puppetMaster.Kill (PuppetMaster.StateSettings.Default);
-		agent.enabled = false;
-		obs.enabled = false;
+
+		print("DIE");
 		ApplyPhysics ();
 	}
 
 
 	protected virtual void ApplyPhysics()
 	{
-		Vector3 dir = ( body.transform.position - collisionPoint);
-		pelvisRigidbody.AddForceAtPosition (dir* 25000, collisionPoint);
+
 	}
 
 	public void Blast(Vector3 center)
 	{
 		OnHit (1000);
-		pelvisRigidbody.AddExplosionForce (3000,center,100);
 	}
-
-	public Rigidbody pelvisRigidbody;
-
+		
 	void TrackObstacle()
 	{
 		if (animState == ENEMY_STATE.ATTKING || animState == ENEMY_STATE.START_ATTK || animState == ENEMY_STATE.IDLE) {
