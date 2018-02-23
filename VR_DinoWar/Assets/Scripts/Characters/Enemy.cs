@@ -272,9 +272,6 @@ public abstract class Enemy : Character {
 
 		}
 
-		
-
-
 		Debug.DrawLine (transform.position + new Vector3(-1,1,0) ,transform.transform.position + transform.forward * 35, Color.blue);
 	}
 
@@ -285,6 +282,7 @@ public abstract class Enemy : Character {
 		stateController.enabled = false;
 
 		print("DIE");
+		obs.enabled = false;
 		ApplyPhysics ();
 	}
 
@@ -318,7 +316,7 @@ public abstract class Enemy : Character {
 	}
 
 	float hitTimecount = 0;
-	float hitFreq = .5f;
+	float hitFreq = .15f;
 	bool isHit;
 	void TrackHitFreq()
 	{

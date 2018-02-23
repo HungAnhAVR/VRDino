@@ -117,7 +117,6 @@ public class Weapon : VRTK_InteractableObject {
 		// If player indeed hit the enemy
 		if (enemy != null) {
 			enemy.Hit (collision.collider,collisionPoint,force);
-			print (collision.collider + "        "+collisionPoint);
 		}
 	}
 
