@@ -17,7 +17,6 @@ public class Grenade : Weapon {
 	void Start () {
 		Initialize ();
 		blastRadius.enabled = false;
-		Thrown ();
 	}
 	
 	// when weapon is thrown
@@ -28,7 +27,6 @@ public class Grenade : Weapon {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		print ("BOOM");
 		CheckIfEnemyAndBlast (other.transform);
 		timeCount += Time.deltaTime;
 	}

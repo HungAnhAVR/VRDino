@@ -21,12 +21,12 @@ public class Club : Weapon {
 	{
 		base.Update ();
 		Loop ();
+		CalculateVelocity ();
 	}
 		
 	protected override void FixedUpdate()
 	{
 		base.FixedUpdate ();
-		CalculateVelocity ();
 	}
 
 }

@@ -155,10 +155,19 @@ public abstract class Enemy : Character {
 		if (!isHit) {
 			
 			isHit = true;
+			int damage = 5 * (int)impact + Random.Range(-10,10);
+
+			// Run hit animation
 			Vector3 dir = hitCollider.transform.position - collisionPoint;
 			hitReaction.Hit (hitCollider,dir.normalized * impact/6 ,collisionPoint);
 
-			OnHit (25);
+			// Show hit number pop up
+			ShowHitNumber (damage);
+
+			// Calculate damage
+			OnHit (damage);
+
+			print ("damage " + damage + " impact "+impact);
 		}
 
 	}
@@ -257,7 +266,7 @@ public abstract class Enemy : Character {
 		Vector3 fwd = transform.position + new Vector3(0,1,0);
 		fwd = transform.TransformDirection(Vector3.forward);
 
-		if (Physics.Raycast (transform.position + new Vector3 (-1, 1, 0), fwd, out hit, 10)) {
+		if (Physics.Raycast (transform.position + transform.forward + new Vector3 (0, 1, 0), fwd, out hit, 10)) {
 
 			if (hit.transform.tag == "Enemy") {
 
@@ -272,17 +281,20 @@ public abstract class Enemy : Character {
 
 		}
 
-		Debug.DrawLine (transform.position + new Vector3(-1,1,0) ,transform.transform.position + transform.forward * 35, Color.blue);
+		Debug.DrawLine (transform.position + transform.forward + new Vector3 (0, 1, 0) ,transform.transform.position + transform.forward * 35, Color.blue);
 	}
 
 	protected override void Die()
 	{
+		if (animState == ENEMY_STATE.DIE)
+			return;
+		
 		animState = ENEMY_STATE.DIE;
 		Player.instance.enemyNo--;
 		stateController.enabled = false;
-
-		print("DIE");
 		obs.enabled = false;
+		agent.enabled = false;
+		print("DIE");
 		ApplyPhysics ();
 	}
 
@@ -294,7 +306,14 @@ public abstract class Enemy : Character {
 
 	public void Blast(Vector3 center)
 	{
+		if (animState == ENEMY_STATE.DIE)
+			return;
+		
 		OnHit (1000);
+		// Show hit number pop up
+		ShowHitNumber (1000);
+
+		animState = ENEMY_STATE.DIE;
 	}
 		
 	void TrackObstacle()
@@ -328,6 +347,16 @@ public abstract class Enemy : Character {
 				isHit = false;
 			}
 
+		}
+	}
+
+	void ShowHitNumber(int damage)
+	{
+		HitNumber hitNumber = ObjectPool.instance.GetHitNumber ();
+		if (hitNumber != null) {
+			hitNumber.transform.position = hitReaction.transform.position;
+			hitNumber.transform.position += Random.insideUnitSphere * .1f;
+			hitNumber.Show (damage);
 		}
 	}
 }

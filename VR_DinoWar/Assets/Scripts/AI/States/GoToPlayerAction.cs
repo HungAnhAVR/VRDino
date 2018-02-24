@@ -23,7 +23,7 @@ public class GoToPlayerAction : Action {
 			}
 			controller.enemy.agent.destination = controller.playerReference.transform.position;
 			controller.enemy.Walk ();
-			controller.enemy.Steer();
+			//controller.enemy.Steer();
 		}
 
 	}

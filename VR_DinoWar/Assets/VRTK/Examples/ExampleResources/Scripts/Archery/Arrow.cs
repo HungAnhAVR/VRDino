@@ -68,7 +68,7 @@
                 ResetArrow();
             }
 
-			CheckIfEnemyAndDealDamage (collision,collision.contacts[0].point,2);
+			CheckIfEnemyAndDealDamage (collision,collision.contacts[0].point,10);
 			// Stop spear dead on its track
 			rigidBody.velocity = Vector3.zero;
 			rigidBody.isKinematic = true;		
@@ -111,7 +111,7 @@
 			enemy = collision.transform.root.GetComponent<Enemy> ();
 			// If player indeed hit the enemy
 			if (enemy != null) {
-				enemy.Hit (collision.collider,collisionPoint,force);
+				enemy.Hit (collision.collider,collisionPoint,force * 2.5f);
 				print (collision.collider + "        "+collisionPoint);
 			}
 		}
