@@ -355,7 +355,7 @@ public abstract class Enemy : Character {
 		HitNumber hitNumber = ObjectPool.instance.GetHitNumber ();
 		if (hitNumber != null) {
 			hitNumber.transform.position = hitReaction.transform.position;
-			hitNumber.transform.position += Random.insideUnitSphere * .1f;
+			hitNumber.transform.position += Random.insideUnitSphere * .25f;
 			hitNumber.Show (damage);
 		}
 	}

@@ -155,7 +155,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 7.8344717, y: 1.0555254, z: 7.1845136, w: 1.9110484}
+  m_margin: {x: 7.8344717, y: 1.0555254, z: 7.761652, w: 1.9110484}
   m_textInfo:
     textComponent: {fileID: 114842590281966714}
     characterCount: 2
@@ -210,8 +210,8 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1039057543020226}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.145654}
+  m_LocalRotation: {x: -0, y: 0.93514514, z: -0, w: -0.35426483}
+  m_LocalPosition: {x: 0, y: 0, z: -36.349583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -219,6 +219,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.628492, y: -2.107047}
+  m_AnchoredPosition: {x: 20.159075, y: 11.095154}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}

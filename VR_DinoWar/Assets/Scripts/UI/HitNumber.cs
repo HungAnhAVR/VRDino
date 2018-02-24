@@ -70,7 +70,7 @@ public class HitNumber : Cacheable {
 
 	IEnumerator Pop()
 	{
-		iTween.PunchPosition(gameObject,iTween.Hash("y",-1,"time",scaleDuration));
+		iTween.PunchPosition(gameObject,iTween.Hash("y",-1,"time",.5f));
 		yield return null;
 	}
 
