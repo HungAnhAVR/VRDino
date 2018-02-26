@@ -85,12 +85,53 @@
      <Compile Include="Assets\Plugins\Editor\RootMotion\FinalIK\RotationLimitSplineInspector.cs" />
      <Compile Include="Assets\Plugins\Editor\RootMotion\FinalIK\TrigonometricIKInspector.cs" />
      <Compile Include="Assets\Plugins\Editor\RootMotion\FinalIK\VRIKInspector.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTweenPath\Editor\iTweenPathEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\BloomModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\BuiltinDebugViewsEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\ChromaticAberrationEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\ColorGradingModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\DefaultPostFxModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\DepthOfFieldModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\DitheringModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\EyeAdaptationModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\FogModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\GrainModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\MotionBlurModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\ScreenSpaceReflectionModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\UserLutModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Models\VignetteModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Monitors\HistogramMonitor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Monitors\ParadeMonitor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Monitors\VectorscopeMonitor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Monitors\WaveformMonitor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PostProcessingBehaviourEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PostProcessingFactory.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PostProcessingInspector.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PostProcessingModelEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PostProcessingMonitor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PropertyDrawers\GetSetDrawer.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PropertyDrawers\MinDrawer.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\PropertyDrawers\TrackballGroupDrawer.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Utils\CurveEditor.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Utils\EditorGUIHelper.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Utils\EditorResources.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Utils\FxStyles.cs" />
+     <Compile Include="Assets\Plugins\PostProcessing\Editor\Utils\ReflectionUtils.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Demo Scripts\CameraControllerInspector.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Scripts\BipedReferencesInspector.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Scripts\CommentsInspector.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Scripts\Inspector.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Scripts\LargeHeaderDrawer.cs" />
      <Compile Include="Assets\Plugins\RootMotion\Editor\Shared Scripts\SerializedContent.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Editor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Preferences.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_RenderModelEditor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Settings.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_SkyboxEditor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Update.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity Engine/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -183,6 +224,12 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/sonpd/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="TextMeshPro-2017.3-1.0.56-Runtime">
+ <HintPath>D:/Unity Projects/VR Dino/VR_DinoWar/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
+ <HintPath>D:/Unity Projects/VR Dino/VR_DinoWar/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
