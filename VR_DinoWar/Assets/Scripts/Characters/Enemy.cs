@@ -14,6 +14,7 @@ public abstract class Enemy : Character {
 	public ENEMY_STATE animState;
 	public HitReaction hitReaction;
 	public FullBodyBipedIK bodyIK;
+	public Transform puppet;
 
 	[HideInInspector] public Animator animator;
 	[HideInInspector] public NavMeshAgent agent;
@@ -155,6 +156,7 @@ public abstract class Enemy : Character {
 		if (!isHit) {
 			
 			isHit = true;
+
 			int damage = 5 * (int)impact + Random.Range(-10,10);
 
 			// Run hit animation
@@ -166,6 +168,9 @@ public abstract class Enemy : Character {
 
 			// Calculate damage
 			OnHit (damage);
+
+			// Play Effect 
+			HitEffect(collisionPoint);
 
 			print ("damage " + damage + " impact "+impact);
 		}
@@ -294,6 +299,8 @@ public abstract class Enemy : Character {
 		stateController.enabled = false;
 		obs.enabled = false;
 		agent.enabled = false;
+
+		DieEffect();
 		print("DIE");
 		ApplyPhysics ();
 	}
@@ -357,6 +364,24 @@ public abstract class Enemy : Character {
 			hitNumber.transform.position = hitReaction.transform.position;
 			hitNumber.transform.position += Random.insideUnitSphere * .25f;
 			hitNumber.Show (damage);
+		}
+	}
+
+	public void HitEffect(Vector3 pos)
+	{
+		TextHitRandom hitRand = ObjectPool.instance.GetTextHitRandom ();
+		if (hitRand != null) {
+			hitRand.transform.position = pos;
+			hitRand.Live ();
+		}
+	}
+
+	protected void DieEffect()
+	{
+		DeathSkull ds = ObjectPool.instance.GetDeathSkulls ();
+		if (ds != null) {
+			ds.transform.position = puppet.transform.position;
+			ds.Live ();
 		}
 	}
 }

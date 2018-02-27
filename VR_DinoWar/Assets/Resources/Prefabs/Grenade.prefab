@@ -166,11 +166,9 @@ MonoBehaviour:
   thrownScale: {x: 1, y: 1, z: 1}
   weaponTip: {fileID: 4669533534128500}
   minForce: 0
-  lastKnownPos: {x: 0, y: 0, z: 0}
   blastRadius: {fileID: 135554688640945106}
   fuseTime: 3
-  explosionPrefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
-    type: 2}
+  explosionPrefab: {fileID: 100004, guid: 907035159fbb8dd4f9731ab21b0ce1bd, type: 2}
 --- !u!135 &135554688640945106
 SphereCollider:
   m_ObjectHideFlags: 1

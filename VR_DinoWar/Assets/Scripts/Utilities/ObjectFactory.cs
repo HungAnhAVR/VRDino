@@ -16,12 +16,16 @@ public class ObjectFactory: MonoBehaviour {
 	{
 		None,
 		HitNumber,
+		TextHitRandom,
+		DeathSkull
 	}
 
 	public Dictionary<PrefabType,string> PrefabPaths = new Dictionary<PrefabType, string> {
 		
 		{ PrefabType.None, "" },
 		{ PrefabType.HitNumber, "Prefabs/HitNumber" },
+		{ PrefabType.TextHitRandom, "Prefabs/TextHitRandom" },
+		{ PrefabType.DeathSkull, "Prefabs/DeathSkull" },
 	};
 
 	public GameObject MakeObject(PrefabType type)

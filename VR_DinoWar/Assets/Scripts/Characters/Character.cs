@@ -13,6 +13,7 @@ public abstract class Character : MonoBehaviour {
 		if (hitPoints <= 0) {
 			Die ();
 		}
+			
 	}
 
 	protected virtual void Die()
