@@ -48,7 +48,7 @@ public class Grenade : Weapon {
 	IEnumerator Explode()
 	{
 		yield return new WaitForSeconds (fuseTime);
-		Instantiate (explosionPrefab,transform.position,transform.rotation);
+		Instantiate (explosionPrefab,transform.position + new Vector3(0,0,1),explosionPrefab.transform.rotation);
 		blastRadius.enabled = true;
 		yield return new WaitForSeconds (.05f);
 		Destroy (gameObject);

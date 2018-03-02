@@ -111,7 +111,7 @@
 			enemy = collision.transform.root.GetComponent<Enemy> ();
 			// If player indeed hit the enemy
 			if (enemy != null) {
-				enemy.Hit (collision.collider,collisionPoint,force * 2.5f);
+				enemy.Hit (collision.collider,collisionPoint,force * 5f);
 				print (collision.collider + "        "+collisionPoint);
 			}
 		}

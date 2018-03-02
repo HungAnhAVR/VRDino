@@ -134,6 +134,8 @@ public abstract class Enemy : Character {
 
 		if (agent.isOnOffMeshLink) {
 			Jump ();
+		} else {
+			agent.speed = initialSpeed; 
 		}
 	}
 
@@ -193,7 +195,7 @@ public abstract class Enemy : Character {
 	// Call by animation event
 	public void MidJump()
 	{
-		agent.speed = 5; //propels forward
+		agent.speed = 2; //propels forward
 	}
 
 	// Call by animation event
