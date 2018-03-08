@@ -27,7 +27,10 @@ public abstract class Enemy : Character {
 
 	public enum ENEMY_STATE
 	{
-		IDLE = 0,
+		NONE = 0,
+		START_IDLE_PLAYING,
+		IDLE_ANIM_PLAYING,
+		END_IDLE,
 		START_WALK,
 		WALKING ,
 		START_JUMP,
@@ -36,6 +39,8 @@ public abstract class Enemy : Character {
 		ATTKING,
 		START_PATH,
 		PATHING,
+		STUN,
+		END_STUN,
 		DIE
 	}
 
@@ -56,8 +61,19 @@ public abstract class Enemy : Character {
 		
 		switch (animState) {
 
+		case ENEMY_STATE.START_IDLE_PLAYING:
+			animator.SetInteger ("State", 5);
+			animState = ENEMY_STATE.IDLE_ANIM_PLAYING;
+			break;
+
+		case ENEMY_STATE.IDLE_ANIM_PLAYING:
+
+			break;
+
 		case ENEMY_STATE.START_WALK:
+			print ("START_WALK");
 			animState = ENEMY_STATE.WALKING;
+		
 			animator.SetInteger ("State", 1);
 		
 			break;
@@ -107,6 +123,15 @@ public abstract class Enemy : Character {
 
 		TrackObstacle ();
 		TrackHitFreq ();
+
+		if (stunTime > 0) {
+			stunTime -= Time.deltaTime;
+			if (stunTime <= 0) {
+				stateController.AIEnabled = true;
+				agent.isStopped = false;
+				None ();
+			}
+		}
 		//Steer ();
 	}
 
@@ -115,12 +140,12 @@ public abstract class Enemy : Character {
 		animator.SetInteger ("State", 0);
 	}
 
-	public void Idle()
+	public void None()
 	{
-		if (animState == ENEMY_STATE.IDLE) {
+		if (animState == ENEMY_STATE.NONE) {
 			return;
 		}
-		animState = ENEMY_STATE.IDLE;
+		animState = ENEMY_STATE.NONE;
 		animator.SetInteger ("State", 0);
 	}
 
@@ -179,6 +204,23 @@ public abstract class Enemy : Character {
 
 	}
 
+	public void Idle()
+	{
+		if (animState != ENEMY_STATE.IDLE_ANIM_PLAYING) {
+			animState = ENEMY_STATE.START_IDLE_PLAYING;
+		}
+	}
+
+	public float stunTime = 0;
+
+	public void Stun()
+	{
+		stunTime += 1;
+		stateController.AIEnabled = false;
+		agent.isStopped = true;
+		animator.SetInteger ("State", 4);
+	}
+
 	public void FollowPath()
 	{
 		if (animState != ENEMY_STATE.PATHING) {
@@ -214,7 +256,13 @@ public abstract class Enemy : Character {
 	public void EndAttack()
 	{
 		attkTime = 0;
-		Idle ();
+		None ();
+	}
+
+	// Call by animation event
+	public void EndIdle()
+	{
+		animState = ENEMY_STATE.END_IDLE;
 	}
 
 	//Force enemy to follow a pre-defined path 
@@ -248,49 +296,7 @@ public abstract class Enemy : Character {
 		Quaternion rotation = Quaternion.LookRotation(lookPos);
 		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 2);  
 	}
-
-	bool rolledRand;
-	int rand ;
-
-	//Attemp to steer away from other Enemy in front of this Enemy
-	//or smooth out turns 
-	public void Steer()
-	{
-		if (!rolledRand) {
-			rand = Random.Range (0,2);
-			rolledRand = true;
-		}
-
-		RaycastHit hit;
-
-		float distanceToObstacle = 0;
-
-		if (!agent.enabled)
-			return;
-
-		// Cast a sphere wrapping character controller 10 meters forward
-		// to see if it is about to hit anything.
-		Vector3 fwd = transform.position + new Vector3(0,1,0);
-		fwd = transform.TransformDirection(Vector3.forward);
-
-		if (Physics.Raycast (transform.position + transform.forward + new Vector3 (0, 1, 0), fwd, out hit, 10)) {
-
-			if (hit.transform.tag == "Enemy") {
-
-				if (rand == 0) {
-					agent.Move (transform.right * Time.deltaTime * 1);
-				} else {
-					agent.Move (-transform.right* Time.deltaTime * 1);
-				}
-
-				print("There is something in front of the object!" + hit.transform.name);
-			}
-
-		}
-
-		Debug.DrawLine (transform.position + transform.forward + new Vector3 (0, 1, 0) ,transform.transform.position + transform.forward * 35, Color.blue);
-	}
-
+		
 	protected override void Die()
 	{
 		if (animState == ENEMY_STATE.DIE)
@@ -327,12 +333,14 @@ public abstract class Enemy : Character {
 		
 	void TrackObstacle()
 	{
-		if (animState == ENEMY_STATE.ATTKING || animState == ENEMY_STATE.START_ATTK || animState == ENEMY_STATE.IDLE) {
+		if (animState == ENEMY_STATE.ATTKING || animState == ENEMY_STATE.START_ATTK ) {
 
 			if(agent.enabled)
 				agent.enabled = false;
-			if(!obs.enabled)
+			if (!obs.enabled) {
 				obs.enabled = true;
+			}
+				
 			
 		} else {
 			if(!agent.enabled)
@@ -346,6 +354,7 @@ public abstract class Enemy : Character {
 	float hitTimecount = 0;
 	float hitFreq = .15f;
 	bool isHit;
+
 	void TrackHitFreq()
 	{
 		if (isHit) {
@@ -385,5 +394,15 @@ public abstract class Enemy : Character {
 			ds.transform.position = puppet.transform.position;
 			ds.Live ();
 		}
+	}
+
+	public Vector3 GetRandomDestination()
+	{
+		string tag = "Waypoint";
+
+		GameObject[] waypointObjs = GameObject.FindGameObjectsWithTag (tag);
+		int randomNo = Random.Range (0,waypointObjs.Length);
+
+		return waypointObjs[randomNo].transform.position;
 	}
 }

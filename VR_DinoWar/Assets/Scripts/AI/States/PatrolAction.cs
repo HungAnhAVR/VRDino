@@ -20,12 +20,11 @@ public class PatrolAction : Action {
 
 		if (controller.enemy.agent.isStopped) {
 			controller.enemy.agent.isStopped = false;
-		}
-
-		if (controller.enemy.agent.remainingDistance < controller.enemy.agent.stoppingDistance) {
+		}	
+		//init
+		if (controller.enemy.agent.remainingDistance == 0) {
 			controller.enemy.agent.destination = GetRandomDestination ();
-		} 
-			
+		}
 	}
 
 	public Vector3 GetRandomDestination()

@@ -12,7 +12,7 @@ public class CheckAttackDecision : Decision {
 
 	bool CheckMaxAttkEnemy(StateController controller)
 	{
-
+		Debug.Log (controller.enemy.animState);
 		if (controller.playerReference == null)
 			return false;
 

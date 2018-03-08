@@ -25,7 +25,6 @@ public class TextHitRandom : Cacheable {
 			timeCount += Time.deltaTime;
 
 			if (timeCount > 1) {
-				print ("AAA");
 				timeCount = 0;
 				Destroy ();
 			}

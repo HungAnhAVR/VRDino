@@ -22,6 +22,11 @@ public class Dino : Enemy {
 	// Update is called once per frame
 	void Update () {
 		Loop ();
+
+		if(Input.GetKeyDown(KeyCode.P))
+			{
+			Stun ();
+			}
 	}
 
 	private void OnCollisionEnter(Collision collision)

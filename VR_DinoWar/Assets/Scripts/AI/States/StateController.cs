@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class StateController : MonoBehaviour {
 
 	public State currentState;
-	public GameObject currentDestination;
 	public State remainInState;
 	public  bool AIEnabled;
 
@@ -18,8 +17,6 @@ public class StateController : MonoBehaviour {
 	void Start () {
 		playerReference = Player.instance;
 		enemy = transform.root.GetComponent<Enemy> ();
-	
-		GetDestination ();
 	}
 	
 	// Update is called once per frame
@@ -37,13 +34,4 @@ public class StateController : MonoBehaviour {
 		}
 	}
 
-	public void GetDestination()
-	{
-		string tag = "Waypoint";
-		
-		GameObject[] waypointObjs = GameObject.FindGameObjectsWithTag (tag);
-		int randomNo = Random.Range (0,waypointObjs.Length);
-
-		currentDestination = waypointObjs[randomNo];
-	}
 }

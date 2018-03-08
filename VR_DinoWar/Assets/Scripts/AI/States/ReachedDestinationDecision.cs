@@ -9,17 +9,14 @@ public class ReachedDestinationDecision : Decision {
 		bool check = CheckDestination (controller);
 		return check;
 	}
-
+	float distance;
 	private bool CheckDestination(StateController controller)
 	{
-		float distanceFromDestination = Vector3.Distance (controller.transform.position,controller.enemy.agent.destination);
-
-		if (distanceFromDestination < controller.enemy.agent.stoppingDistance) {
+		distance = Vector3.Distance(controller.enemy.transform.position,controller.enemy.agent.destination);
+		if (distance < controller.enemy.agent.stoppingDistance) {
 			return true;
 		} else {
 			return false;
 		}
-
-
 	}
 }
