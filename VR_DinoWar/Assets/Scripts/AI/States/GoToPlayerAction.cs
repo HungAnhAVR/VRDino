@@ -4,6 +4,12 @@ using UnityEngine;
 
 [CreateAssetMenu (menuName ="PluggableAI/Actions/GoToPlayerAction")]
 public class GoToPlayerAction : Action {
+	
+	public override void Init (StateController controller)
+	{
+		controller.enemy.animator.SetInteger ("State", 1);
+		controller.enemy.LocalAvoidanceOff ();
+	}
 
 	public override void Act (StateController controller)
 	{
@@ -22,8 +28,6 @@ public class GoToPlayerAction : Action {
 				controller.enemy.agent.enabled = true;
 			}
 			controller.enemy.agent.destination = controller.playerReference.transform.position;
-			controller.enemy.Walk ();
-			//controller.enemy.Steer();
 		}
 
 	}

@@ -1583,7 +1583,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1200736148899672}
   m_LocalRotation: {x: 0, y: 0.93514514, z: 0, w: -0.35426483}
-  m_LocalPosition: {x: -25.465603, y: 12.33, z: -30.823168}
+  m_LocalPosition: {x: -23.95, y: 12.01, z: -8.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4585197776141078}
@@ -2332,7 +2332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cffd3afa7b56a42b3552989c41db02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: 26cfbe1158ef7484b855acd54a664423, type: 2}
+  currentState: {fileID: 11400000, guid: e84e4a868ba5776409e9d3d312e5894d, type: 2}
   remainInState: {fileID: 11400000, guid: ec04b6017f2c8b540b2374c4c965129e, type: 2}
   AIEnabled: 1
   minimumRange: 2
@@ -3484,10 +3484,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 250
-  isOnPath: 0
-  isGrounded: 1
-  attkRate: 0
-  animState: 0
   hitReaction: {fileID: 114461597450478694}
   bodyIK: {fileID: 114432808649499252}
   puppet: {fileID: 4585197776141078}
@@ -3495,7 +3491,8 @@ MonoBehaviour:
   agent: {fileID: 0}
   initialSpeed: 0
   obs: {fileID: 0}
-  attkTime: 0
+  isIdleDone: 0
+  stunTime: 0
   pelvis: {fileID: 54165818112622488}
 --- !u!135 &135828986164511136
 SphereCollider:
@@ -4033,7 +4030,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.24303332, y: 0.000000029802319, z: 0.0000007003546}
+  m_ConnectedAnchor: {x: -0.24303319, y: 0.00000026822087, z: -0.00000018626451}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:

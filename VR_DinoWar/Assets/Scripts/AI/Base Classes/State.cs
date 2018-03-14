@@ -21,6 +21,13 @@ public class State : ScriptableObject {
 		}
 	}
 
+	public void InitState(StateController controller)
+	{
+		for (int i = 0; i < actions.Length; i++) {
+			actions [i].Init (controller);
+		}
+	}
+
 	private void CheckTransition(StateController controller)
 	{
 		for (int i = 0; i < transitions.Length; i++) {

@@ -31,6 +31,7 @@ public class StateController : MonoBehaviour {
 	{
 		if (nextState != remainInState) {
 			currentState = nextState;
+			currentState.InitState (this);
 		}
 	}
 

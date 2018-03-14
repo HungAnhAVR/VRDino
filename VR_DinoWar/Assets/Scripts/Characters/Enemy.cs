@@ -7,11 +7,6 @@ using RootMotion.FinalIK;
 
 public abstract class Enemy : Character {
 
-	public bool isOnPath;
-	public bool isGrounded;
-	public float attkRate;
-
-	public ENEMY_STATE animState;
 	public HitReaction hitReaction;
 	public FullBodyBipedIK bodyIK;
 	public Transform puppet;
@@ -20,29 +15,15 @@ public abstract class Enemy : Character {
 	[HideInInspector] public NavMeshAgent agent;
 	[HideInInspector] public float initialSpeed; 
 	[HideInInspector] public NavMeshObstacle obs;
+	[HideInInspector] public bool isIdleDone;
+
+	public delegate void OnIdleAnimOverEvent (StateController controller);
+	public OnIdleAnimOverEvent onIdleAnimDone;
+
+	public delegate void OnEndAttackAnim (StateController controller);
+	public OnEndAttackAnim onEndAttackAnim;
 
 	protected StateController stateController;
-
-	public float attkTime = 0;
-
-	public enum ENEMY_STATE
-	{
-		NONE = 0,
-		START_IDLE_PLAYING,
-		IDLE_ANIM_PLAYING,
-		END_IDLE,
-		START_WALK,
-		WALKING ,
-		START_JUMP,
-		JUMPING,
-		START_ATTK,
-		ATTKING,
-		START_PATH,
-		PATHING,
-		STUN,
-		END_STUN,
-		DIE
-	}
 
 	public void Initialize()
 	{
@@ -55,73 +36,6 @@ public abstract class Enemy : Character {
 
 	protected void Loop()
 	{
-
-		if (animState == ENEMY_STATE.DIE)
-			return;
-		
-		switch (animState) {
-
-		case ENEMY_STATE.START_IDLE_PLAYING:
-			animator.SetInteger ("State", 5);
-			animState = ENEMY_STATE.IDLE_ANIM_PLAYING;
-			break;
-
-		case ENEMY_STATE.IDLE_ANIM_PLAYING:
-
-			break;
-
-		case ENEMY_STATE.START_WALK:
-			print ("START_WALK");
-			animState = ENEMY_STATE.WALKING;
-		
-			animator.SetInteger ("State", 1);
-		
-			break;
-
-		case ENEMY_STATE.WALKING:
-			
-			break;
-
-		case ENEMY_STATE.START_JUMP:
-			animState = ENEMY_STATE.JUMPING;
-			animator.SetInteger ("State", 2);
-			break;
-
-		case ENEMY_STATE.JUMPING:
-			
-			break;
-
-		case ENEMY_STATE.START_ATTK:
-			
-			attkTime += Time.deltaTime;
-
-			if (attkTime >= attkRate) {
-
-				animState = ENEMY_STATE.ATTKING;
-				animator.SetInteger ("State", 3);
-
-			} else {
-				Wait ();
-			}
-
-			FaceTarget (Player.instance.transform.position);
-
-			break;
-
-		case ENEMY_STATE.ATTKING:
-			break;
-
-		case ENEMY_STATE.START_PATH:
-			animState = ENEMY_STATE.PATHING;
-			Pathing ();
-			break;
-
-		case ENEMY_STATE.PATHING:
-			break;
-
-		}
-
-		TrackObstacle ();
 		TrackHitFreq ();
 
 		if (stunTime > 0) {
@@ -129,55 +43,10 @@ public abstract class Enemy : Character {
 			if (stunTime <= 0) {
 				stateController.AIEnabled = true;
 				agent.isStopped = false;
-				None ();
 			}
 		}
-		//Steer ();
 	}
-
-	public void Wait()
-	{
-		animator.SetInteger ("State", 0);
-	}
-
-	public void None()
-	{
-		if (animState == ENEMY_STATE.NONE) {
-			return;
-		}
-		animState = ENEMY_STATE.NONE;
-		animator.SetInteger ("State", 0);
-	}
-
-	public void Walk()
-	{
-		if (animState != ENEMY_STATE.WALKING) {
-			animState = ENEMY_STATE.START_WALK;
-		}
-		//Smooth out turns
-		//Steer();
-
-		if (agent.isOnOffMeshLink) {
-			Jump ();
-		} else {
-			agent.speed = initialSpeed; 
-		}
-	}
-
-	public void Attack()
-	{
-		if (animState != ENEMY_STATE.ATTKING) {
-			animState = ENEMY_STATE.START_ATTK;
-		}
-	}
-
-	public void Jump()
-	{
-		if (animState != ENEMY_STATE.JUMPING) {
-			animState = ENEMY_STATE.START_JUMP;
-		}
-	}
-
+		
 	public void Hit(Collider hitCollider,Vector3 collisionPoint,float impact)
 	{
 		if (!isHit) {
@@ -204,13 +73,6 @@ public abstract class Enemy : Character {
 
 	}
 
-	public void Idle()
-	{
-		if (animState != ENEMY_STATE.IDLE_ANIM_PLAYING) {
-			animState = ENEMY_STATE.START_IDLE_PLAYING;
-		}
-	}
-
 	public float stunTime = 0;
 
 	public void Stun()
@@ -219,13 +81,6 @@ public abstract class Enemy : Character {
 		stateController.AIEnabled = false;
 		agent.isStopped = true;
 		animator.SetInteger ("State", 4);
-	}
-
-	public void FollowPath()
-	{
-		if (animState != ENEMY_STATE.PATHING) {
-			animState = ENEMY_STATE.START_PATH;
-		}
 	}
 
 	// Call by animation event
@@ -255,14 +110,14 @@ public abstract class Enemy : Character {
 	// Call by animation event
 	public void EndAttack()
 	{
-		attkTime = 0;
-		None ();
+		onEndAttackAnim (stateController);
 	}
 
 	// Call by animation event
 	public void EndIdle()
 	{
-		animState = ENEMY_STATE.END_IDLE;
+		isIdleDone = true;
+		onIdleAnimDone (stateController);
 	}
 
 	//Force enemy to follow a pre-defined path 
@@ -289,7 +144,7 @@ public abstract class Enemy : Character {
 		
 	}
 
-	private void FaceTarget(Vector3 destination)
+	public void FaceTarget(Vector3 destination)
 	{
 		Vector3 lookPos = destination - transform.position;
 		lookPos.y = 0;
@@ -299,10 +154,6 @@ public abstract class Enemy : Character {
 		
 	protected override void Die()
 	{
-		if (animState == ENEMY_STATE.DIE)
-			return;
-		
-		animState = ENEMY_STATE.DIE;
 		Player.instance.enemyNo--;
 		stateController.enabled = false;
 		obs.enabled = false;
@@ -321,34 +172,21 @@ public abstract class Enemy : Character {
 
 	public void Blast(Vector3 center)
 	{
-		if (animState == ENEMY_STATE.DIE)
-			return;
-		
 		OnHit (1000);
 		// Show hit number pop up
 		ShowHitNumber (1000);
-
-		animState = ENEMY_STATE.DIE;
 	}
 		
-	void TrackObstacle()
+	public void LocalAvoidanceOn()
 	{
-		if (animState == ENEMY_STATE.ATTKING || animState == ENEMY_STATE.START_ATTK ) {
+		agent.enabled = false;
+		obs.enabled = true;
+	}
 
-			if(agent.enabled)
-				agent.enabled = false;
-			if (!obs.enabled) {
-				obs.enabled = true;
-			}
-				
-			
-		} else {
-			if(!agent.enabled)
-				agent.enabled = true;
-			if(obs.enabled)
-				obs.enabled = false;
-		}
-
+	public void LocalAvoidanceOff()
+	{
+		agent.enabled = true;
+		obs.enabled = false;
 	}
 
 	float hitTimecount = 0;
@@ -394,15 +232,5 @@ public abstract class Enemy : Character {
 			ds.transform.position = puppet.transform.position;
 			ds.Live ();
 		}
-	}
-
-	public Vector3 GetRandomDestination()
-	{
-		string tag = "Waypoint";
-
-		GameObject[] waypointObjs = GameObject.FindGameObjectsWithTag (tag);
-		int randomNo = Random.Range (0,waypointObjs.Length);
-
-		return waypointObjs[randomNo].transform.position;
 	}
 }

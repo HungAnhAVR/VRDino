@@ -5,6 +5,13 @@ using UnityEngine;
 [CreateAssetMenu (menuName ="PluggableAI/Actions/PatrolAction")]
 public class PatrolAction : Action {
 
+	public override void Init (StateController controller)
+	{
+		controller.enemy.agent.destination = GetRandomDestination ();
+		controller.enemy.animator.SetInteger ("State", 1);
+		controller.enemy.LocalAvoidanceOff ();
+	}
+
 	public override void Act (StateController controller)
 	{
 		Patrol (controller);
@@ -12,7 +19,6 @@ public class PatrolAction : Action {
 
 	private void Patrol(StateController controller)
 	{
-		controller.enemy.Walk ();
 
 		if (!controller.enemy.agent.enabled) {
 			return;
@@ -21,13 +27,10 @@ public class PatrolAction : Action {
 		if (controller.enemy.agent.isStopped) {
 			controller.enemy.agent.isStopped = false;
 		}	
-		//init
-		if (controller.enemy.agent.remainingDistance == 0) {
-			controller.enemy.agent.destination = GetRandomDestination ();
-		}
+
 	}
 
-	public Vector3 GetRandomDestination()
+	private Vector3 GetRandomDestination()
 	{
 		string tag = "Waypoint";
 

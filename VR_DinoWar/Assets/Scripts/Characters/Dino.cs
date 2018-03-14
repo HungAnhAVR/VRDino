@@ -27,6 +27,8 @@ public class Dino : Enemy {
 			{
 			Stun ();
 			}
+
+
 	}
 
 	private void OnCollisionEnter(Collision collision)
