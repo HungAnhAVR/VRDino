@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class StateController : MonoBehaviour {
 
 	public State currentState;
+	public State lastState;
 	public State remainInState;
 	public  bool AIEnabled;
 
@@ -30,9 +31,26 @@ public class StateController : MonoBehaviour {
 	public void TransitionToState(State nextState)
 	{
 		if (nextState != remainInState) {
+			lastState = currentState;
 			currentState = nextState;
 			currentState.InitState (this);
 		}
+	}
+
+	public void ResumeLastState()
+	{
+		if (lastState != null) {
+			print ("ResumeLastState");
+			currentState = lastState;
+			currentState.InitState (this);
+		}
+
+	}
+
+	public void Resume()
+	{
+		AIEnabled = true;
+		currentState.InitState (this);
 	}
 
 }

@@ -26,7 +26,7 @@ public class PatrolAction : Action {
 
 		if (controller.enemy.agent.isStopped) {
 			controller.enemy.agent.isStopped = false;
-		}	
+		}
 
 	}
 
@@ -39,4 +39,5 @@ public class PatrolAction : Action {
 
 		return waypointObjs[randomNo].transform.position;
 	}
+
 }

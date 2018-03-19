@@ -29,6 +29,6 @@ public class GoToPlayerAction : Action {
 			}
 			controller.enemy.agent.destination = controller.playerReference.transform.position;
 		}
-
 	}
+
 }

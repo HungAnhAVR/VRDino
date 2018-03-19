@@ -23,6 +23,8 @@ public abstract class Enemy : Character {
 	public delegate void OnEndAttackAnim (StateController controller);
 	public OnEndAttackAnim onEndAttackAnim;
 
+	public bool isJumping;
+
 	protected StateController stateController;
 
 	public void Initialize()
@@ -45,7 +47,20 @@ public abstract class Enemy : Character {
 				agent.isStopped = false;
 			}
 		}
+
+		if (agent.isOnOffMeshLink) {
+			if (!isJumping) {
+				stateController.AIEnabled = false;
+				agent.speed = 1;
+
+				isJumping = true;
+
+				animator.SetInteger ("State", 2);
+				print ("JUMPING");
+			}
+		}
 	}
+		
 		
 	public void Hit(Collider hitCollider,Vector3 collisionPoint,float impact)
 	{
@@ -86,19 +101,28 @@ public abstract class Enemy : Character {
 	// Call by animation event
 	public void StartJump()
 	{
-		agent.speed = 1; //spring up
+
 	}
 
 	// Call by animation event
 	public void MidJump()
 	{
-		agent.speed = 2; //propels forward
+		agent.speed = 5;// propels forward
 	}
 
 	// Call by animation event
 	public void EndJump()
 	{
+		StartCoroutine(JumpTouchUp());
+	}
+
+	IEnumerator JumpTouchUp()
+	{
+		agent.enabled = false;
+		yield return new WaitForSeconds (.5f);
 		agent.speed = initialSpeed; //resume speed
+		agent.enabled = true;
+		stateController.Resume();
 	}
 
 	// Call by animation event
@@ -119,6 +143,8 @@ public abstract class Enemy : Character {
 		isIdleDone = true;
 		onIdleAnimDone (stateController);
 	}
+
+
 
 	//Force enemy to follow a pre-defined path 
 	public void Pathing()
