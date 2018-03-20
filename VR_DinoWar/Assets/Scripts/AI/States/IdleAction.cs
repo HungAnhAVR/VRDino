@@ -6,8 +6,8 @@ public class IdleAction : Action {
 	
 	public override void Init (StateController controller)
 	{
-		controller.enemy.animator.SetInteger ("State", 0);
-		controller.enemy.animator.SetTrigger ("Idle Anim 1");
+		int rand = Random.Range (4,8);
+		controller.enemy.animator.SetInteger ("State", rand);
 		controller.enemy.isIdleDone = false;
 		controller.enemy.LocalAvoidanceOn ();
 
